@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 
-const User = mongoose.Schema(
+const Users = mongoose.Schema(
   {
-    first_name: String,
-    last_name: String,
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
     role: {
@@ -16,4 +16,4 @@ const User = mongoose.Schema(
   }
 )
 
-export default mongoose.models.User || mongoose.model('User', User)
+export default mongoose.models.Users || mongoose.model('Users', Users)
