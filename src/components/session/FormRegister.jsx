@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
-import axios from 'axios'
+import { Axios } from '@/lib/axios'
 
 export const FormRegister = () => {
   const router = useRouter()
@@ -20,9 +19,9 @@ export const FormRegister = () => {
       password: e.target.password.value,
     }
 
-    axios
-      .post('https://horario-unimayor.vercel.app/api/register', dataUser)
+    Axios.post('api/register', dataUser)
       .then((res) => {
+        console.log(res)
         router.push('/login')
       })
       .catch((err) => {
