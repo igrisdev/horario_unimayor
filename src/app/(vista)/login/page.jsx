@@ -8,7 +8,7 @@ export default function Login() {
         <form className='flex flex-col gap-3'>
           <div className='block relative'>
             <label
-              for='email'
+              htmlFor='email'
               className='block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2'
             >
               Email
@@ -22,7 +22,7 @@ export default function Login() {
           </div>
           <div className='block relative'>
             <label
-              for='password'
+              htmlFor='password'
               className='block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2'
             >
               Contraseña
