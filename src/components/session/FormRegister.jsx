@@ -22,7 +22,6 @@ export const FormRegister = () => {
     Axios.post('api/register', dataUser)
       .then((res) => {
         console.log(res)
-        router.push('/login')
       })
       .catch((err) => {
         console.log(err)
@@ -143,12 +142,12 @@ export const FormRegister = () => {
       </form>
       <div className='flex gap-1 items-center justify-center mt-3'>
         Ya tienes cuenta
-        <a
-          className='text-[#7747ff]'
-          href='/login'
+        <button
+          className='text-[#7747ff] bg-none'
+          onClick={() => router.push('login')}
         >
           Inicia Sesión
-        </a>
+        </button>
       </div>
     </>
   )
