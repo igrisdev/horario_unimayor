@@ -87,7 +87,7 @@ export default function Register() {
           </button>
         </form>
         <div class='flex gap-1 items-center justify-center mt-3'>
-          Ya tiene cuenta
+          Ya tienes cuenta
           <a
             class='text-[#7747ff]'
             href='/login'
