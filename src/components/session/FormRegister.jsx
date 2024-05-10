@@ -21,7 +21,7 @@ export const FormRegister = () => {
     }
 
     axios
-      .post('http://localhost:3000/api/register', dataUser)
+      .post('https://horario-unimayor.vercel.app/api/register', dataUser)
       .then((res) => {
         router.push('/login')
       })
