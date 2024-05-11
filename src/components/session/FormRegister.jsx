@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-// import { Axios } from '@/lib/axios'
-import axios from 'axios'
+import { Axios } from '@/lib/axios'
+// import axios from 'axios'
 import Link from 'next/link'
 
 export const FormRegister = () => {
@@ -21,8 +21,7 @@ export const FormRegister = () => {
   const createUser = () => {
     setLoading(true)
 
-    axios
-      .post('api/register', user)
+    Axios.post('api/register', user)
       .then((res) => {
         router.push('/login')
       })
@@ -152,7 +151,7 @@ export const FormRegister = () => {
           className='text-[#7747ff] '
           href='/login'
         >
-          Visit login page
+          Inicia Sesión
         </Link>
       </div>
     </>
