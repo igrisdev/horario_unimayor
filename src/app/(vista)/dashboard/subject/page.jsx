@@ -1,3 +1,9 @@
+import { TableSubject } from '@/components/dashboard/subject/TableSubject'
+
 export default function Subject() {
-  return <div>page</div>
+  return (
+    <main>
+      <TableSubject />
+    </main>
+  )
 }
