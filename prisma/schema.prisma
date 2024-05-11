@@ -11,14 +11,56 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   firstName String
   lastName  String
-  email     String  @unique
+  email     String     @unique
   password  String
-  role      String   @default("user")
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  role      String     @default("docente")
+  createdAt DateTime   @default(now()) @map(name: "created_at")
+  updatedAt DateTime   @updatedAt @map(name: "updated_at")
+  Schedule  Schedule[]
 
   @@map(name: "users")
+}
+
+model Subject {
+  id          String     @id @default(cuid())
+  name        String
+  code        String
+  hours       Int
+  description String
+  Schedule    Schedule[]
+}
+
+model SchoolTerm {
+  id        String     @id @default(uuid())
+  name      String
+  dateStart DateTime
+  dateEnd   DateTime
+  state     Boolean
+  Schedule  Schedule[]
+}
+
+model Schedule {
+  id            String      @id @default(cuid())
+  day           String
+  hourStart     DateTime
+  hourEnd       DateTime
+  schoolTermId  String
+  schoolTerm    SchoolTerm  @relation(fields: [schoolTermId], references: [id]) // peridodo academico
+  userId        String
+  user          User        @relation(fields: [userId], references: [id]) // docente
+  environmentId String
+  environment   Environment @relation(fields: [environmentId], references: [id]) // ambiente
+  subjectId     String
+  subject       Subject     @relation(fields: [subjectId], references: [id]) // materia
+}
+
+model Environment {
+  id              String     @id @default(uuid())
+  typeEnvironment String
+  side            String
+  location        String
+  Schedule        Schedule[]
 }
