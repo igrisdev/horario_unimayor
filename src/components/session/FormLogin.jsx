@@ -17,9 +17,21 @@ export const FormLogin = () => {
       password: e.target.password.value,
     }
 
-    Axios.post('api/login', dataUser)
+    Axios.get('api/login', {
+      params: {
+        email: dataUser.email,
+        password: dataUser.password,
+      },
+    })
       .then((res) => {
         console.log(res)
+        if (res.data.length > 0) {
+          console.log(res.data[0])
+          localStorage.setItem('user', JSON.stringify(res.data[0]))
+          router.push('/')
+        } else {
+          console.log('Usuario no encontrado')
+        }
       })
       .catch((err) => {
         console.log(err)
