@@ -69,7 +69,7 @@ export const Navbar = () => {
             </select>
           </form>
         </div>
-        <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full'>
+        <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
           J
         </div>
       </div>
