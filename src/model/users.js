@@ -2,10 +2,26 @@ import mongoose from 'mongoose'
 
 const Users = mongoose.Schema(
   {
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String,
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     role: {
       type: String,
       default: 'user',

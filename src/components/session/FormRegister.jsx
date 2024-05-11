@@ -3,25 +3,26 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Axios } from '@/lib/axios'
+import Link from 'next/link'
 
 export const FormRegister = () => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
 
-  const createUser = (e) => {
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  })
+
+  const createUser = () => {
     setLoading(true)
 
-    const dataUser = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-    }
-
-    Axios.post('api/register', dataUser)
+    Axios.post('api/register', user)
       .then((res) => {
-        console.log(res)
+        router.push('/login')
       })
       .catch((err) => {
         console.log(err)
@@ -33,10 +34,7 @@ export const FormRegister = () => {
 
   return (
     <>
-      <form
-        onSubmit={createUser}
-        className='flex flex-col gap-3'
-      >
+      <div className='flex flex-col gap-3'>
         <div className='flex items-center mt-2 gap-4'>
           <div className='block relative '>
             <label
@@ -49,6 +47,7 @@ export const FormRegister = () => {
               type='text'
               id='firstName'
               name='firstName'
+              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
             />
           </div>
@@ -63,6 +62,7 @@ export const FormRegister = () => {
               type='text'
               id='lastName'
               name='lastName'
+              onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
             />
           </div>
@@ -78,6 +78,7 @@ export const FormRegister = () => {
             type='text'
             id='email'
             name='email'
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
           />
         </div>
@@ -92,6 +93,7 @@ export const FormRegister = () => {
             type='text'
             id='password'
             name='password'
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
           />
         </div>
@@ -113,6 +115,8 @@ export const FormRegister = () => {
         <button
           type='submit'
           className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'
+          onClick={createUser}
+          disabled={loading}
         >
           {loading ? (
             <>
@@ -139,15 +143,15 @@ export const FormRegister = () => {
             'Crear cuenta'
           )}
         </button>
-      </form>
+      </div>
       <div className='flex gap-1 items-center justify-center mt-3'>
         Ya tienes cuenta
-        <button
-          className='text-[#7747ff] bg-none'
-          onClick={() => router.push('login')}
+        <Link
+          className='text-[#7747ff] '
+          href='/login'
         >
-          Inicia Sesión
-        </button>
+          Visit login page
+        </Link>
       </div>
     </>
   )
