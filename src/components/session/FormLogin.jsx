@@ -19,7 +19,6 @@ export const FormLogin = () => {
 
     Axios.post('api/login', user)
       .then((res) => {
-        console.log(res)
         router.push('/')
       })
       .catch((err) => {
