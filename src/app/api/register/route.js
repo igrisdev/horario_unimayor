@@ -1,16 +1,14 @@
-import Users from '@/model/users'
-import connectDB from '@/lib/connectDB'
+import prisma from '@/lib/prisma'
 
 import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    await connectDB()
-
-    const users = await Users.find({}, { createdAt: 0, updatedAt: 0, __v: 0 })
+    const users = await prisma.user.findMany()
 
     return NextResponse.json(users, { status: 200 })
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
@@ -20,15 +18,15 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    await connectDB()
-
     const { firstName, lastName, email, password } = await req.json()
 
-    await Users.create({
-      firstName,
-      lastName,
-      email,
-      password,
+    await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
     })
 
     return NextResponse.json(
@@ -42,7 +40,6 @@ export async function POST(req) {
     )
   }
 }
-
 
 /* import connect from '@/lib/connectDB'
 import User from '@/model/users'

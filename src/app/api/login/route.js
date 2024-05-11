@@ -1,23 +1,24 @@
-import Users from '@/model/users'
-import connectDB from '@/lib/connectDB'
+import prisma from '@/lib/prisma'
 
 import { NextResponse } from 'next/server'
 
-export async function GET(req, { params }) {
+export async function POST(req) {
   try {
-    await connectDB()
-
     const { email, password } = await req.json()
-    console.log(email, password)
 
-    const foundUser = await Users.find({ email, password })
+    const foundUser = await prisma.user.findUnique({
+      where: {
+        email,
+        password,
+      },
+    })
 
     return NextResponse.json(
       { message: 'Inicio de sesión con éxito' },
       { status: 200 }
     )
   } catch (error) {
-    console.log(error)
+    console.log(object)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

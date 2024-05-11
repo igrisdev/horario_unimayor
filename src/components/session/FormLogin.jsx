@@ -9,29 +9,18 @@ export const FormLogin = () => {
 
   const [loading, setLoading] = useState(false)
 
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  })
+
   const foundUser = (e) => {
     setLoading(true)
 
-    const dataUser = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    }
-
-    Axios.get('api/login', {
-      params: {
-        email: dataUser.email,
-        password: dataUser.password,
-      },
-    })
+    Axios.post('api/login', user)
       .then((res) => {
         console.log(res)
-        if (res.data.length > 0) {
-          console.log(res.data[0])
-          localStorage.setItem('user', JSON.stringify(res.data[0]))
-          router.push('/')
-        } else {
-          console.log('Usuario no encontrado')
-        }
+        router.push('/')
       })
       .catch((err) => {
         console.log(err)
@@ -43,10 +32,7 @@ export const FormLogin = () => {
 
   return (
     <>
-      <form
-        onSubmit={foundUser}
-        className='flex flex-col gap-3'
-      >
+      <div className='flex flex-col gap-3'>
         <div className='block relative'>
           <label
             htmlFor='email'
@@ -58,6 +44,7 @@ export const FormLogin = () => {
             type='text'
             id='email'
             name='email'
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
           />
         </div>
@@ -72,12 +59,13 @@ export const FormLogin = () => {
             type='text'
             id='password'
             name='password'
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
           />
         </div>
 
         <button
-          type='submit'
+          onClick={foundUser}
           className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'
         >
           {loading ? (
@@ -105,7 +93,7 @@ export const FormLogin = () => {
             'Iniciar Sesión'
           )}
         </button>
-      </form>
+      </div>
       <div className='flex gap-1 items-center justify-center mt-3'>
         No tienes cuenta
         <button
