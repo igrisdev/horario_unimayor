@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Axios } from '@/lib/axios'
+// import { Axios } from '@/lib/axios'
+import axios from 'axios'
 import Link from 'next/link'
 
 export const FormRegister = () => {
@@ -20,7 +21,8 @@ export const FormRegister = () => {
   const createUser = () => {
     setLoading(true)
 
-    Axios.post('api/register', user)
+    axios
+      .post('api/register', user)
       .then((res) => {
         router.push('/login')
       })
