@@ -29,7 +29,7 @@ model Subject {
   name        String
   code        String
   hours       Int
-  description String
+  description String?
   Schedule    Schedule[]
 }
 
