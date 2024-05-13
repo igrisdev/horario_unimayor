@@ -61,11 +61,14 @@ export const Navbar = () => {
 
       <div className='flex gap-x-2 items-center'>
         <div>
-          <form class='max-w-sm mx-auto'>
-            <select class='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'>
-              <option selected>Periodo Académico</option>
-              <option value=''>2023-1</option>
-              <option value=''>2023-2</option>
+          <form className='max-w-sm mx-auto'>
+            <select
+              className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+              defaultValue='default'
+            >
+              <option value='default'>Periodo Académico</option>
+              <option value='1'>2023-1</option>
+              <option value='2'>2023-2</option>
             </select>
           </form>
         </div>
