@@ -1,6 +1,7 @@
+import { Axios } from '@/lib/axios'
 import Link from 'next/link'
 
-export const TableSubject = () => {
+export const TableSubject = ({ dataSubjects }) => {
   return (
     <section class='relative overflow-x-auto shadow-md sm:rounded-lg'>
       <div class='flex gap-x-4 pb-4'>
@@ -77,54 +78,59 @@ export const TableSubject = () => {
               scope='col'
               class='px-6 py-3'
             >
-              Product name
+              Nombre Materia
             </th>
             <th
               scope='col'
               class='px-6 py-3'
             >
-              Color
+              Código
             </th>
             <th
               scope='col'
               class='px-6 py-3'
             >
-              Category
+              # Horas
             </th>
             <th
               scope='col'
               class='px-6 py-3'
             >
-              Price
+              Descripción
             </th>
             <th
               scope='col'
               class='px-6 py-3'
             >
-              Action
+              Acciones
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr class='bg-white border-b hover:bg-gray-50 '>
-            <th
-              scope='row'
-              class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
+          {dataSubjects.map((subject) => (
+            <tr
+              key={subject.id}
+              class='bg-white border-b hover:bg-gray-50 '
             >
-              Apple MacBook Pro 17
-            </th>
-            <td class='px-6 py-4'>Silver</td>
-            <td class='px-6 py-4'>Laptop</td>
-            <td class='px-6 py-4'>$2999</td>
-            <td class='px-6 py-4'>
-              <a
-                href='#'
-                class='font-medium text-blue-600 hover:underline'
+              <th
+                scope='row'
+                class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
               >
-                Edit
-              </a>
-            </td>
-          </tr>
+                {subject.name}
+              </th>
+              <td class='px-6 py-4'>{subject.code}</td>
+              <td class='px-6 py-4'>{subject.hours}</td>
+              <td class='px-6 py-4'>{subject.description}</td>
+              <td class='px-6 py-4'>
+                <a
+                  href='#'
+                  class='font-medium text-blue-600 hover:underline'
+                >
+                  Edit
+                </a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </section>
