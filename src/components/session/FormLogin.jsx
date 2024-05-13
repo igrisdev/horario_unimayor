@@ -9,17 +9,18 @@ export const FormLogin = () => {
 
   const [loading, setLoading] = useState(false)
 
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  })
+  const foundUser = (event) => {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    const user = Object.fromEntries(data)
 
-  const foundUser = (e) => {
     setLoading(true)
 
     Axios.post('api/login', user)
       .then((res) => {
-        router.push('/')
+        if (res.status === 200) {
+          router.push('/')
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -31,7 +32,10 @@ export const FormLogin = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-3'>
+      <form
+        onSubmit={foundUser}
+        className='flex flex-col gap-3'
+      >
         <div className='block relative'>
           <label
             htmlFor='email'
@@ -63,10 +67,7 @@ export const FormLogin = () => {
           />
         </div>
 
-        <button
-          onClick={foundUser}
-          className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'
-        >
+        <button className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'>
           {loading ? (
             <>
               <svg
@@ -86,20 +87,20 @@ export const FormLogin = () => {
                   fill='#1C64F2'
                 />
               </svg>
-              Loading...
+              Cargando ...
             </>
           ) : (
             'Iniciar Sesión'
           )}
         </button>
-      </div>
+      </form>
       <div className='flex gap-1 items-center justify-center mt-3'>
         No tienes cuenta
         <button
           className='text-[#7747ff] bg-none'
           onClick={() => router.push('register')}
         >
-          Crea Una
+          Crea Una.
         </button>
       </div>
     </>

@@ -99,10 +99,10 @@ export const FormSubject = () => {
                 fill='#1C64F2'
               />
             </svg>
-            Loading...
+            Cargando ...
           </>
         ) : (
-          'Iniciar Sesión'
+          'Crear Materia'
         )}
       </button>
     </form>
