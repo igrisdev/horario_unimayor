@@ -2,28 +2,28 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Axios } from '@/lib/axios'
-// import axios from 'axios'
 import Link from 'next/link'
+
+import { Axios } from '@/lib/axios'
 
 export const FormRegister = () => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
 
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  })
+  const createUser = (event) => {
+    event.preventDefault()
 
-  const createUser = () => {
+    const data = new FormData(event.target)
+    const user = Object.fromEntries(data)
+
     setLoading(true)
 
-    Axios.post('api/register', user)
+    Axios.post('/api/register', user)
       .then((res) => {
-        router.push('/login')
+        if (res.status === 200) {
+          router.push('/login')
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -35,7 +35,10 @@ export const FormRegister = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-3'>
+      <form
+        onSubmit={createUser}
+        className='flex flex-col gap-3'
+      >
         <div className='flex items-center mt-2 gap-4'>
           <div className='block relative '>
             <label
@@ -48,7 +51,6 @@ export const FormRegister = () => {
               type='text'
               id='firstName'
               name='firstName'
-              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
             />
           </div>
@@ -63,7 +65,6 @@ export const FormRegister = () => {
               type='text'
               id='lastName'
               name='lastName'
-              onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
             />
           </div>
@@ -79,7 +80,6 @@ export const FormRegister = () => {
             type='text'
             id='email'
             name='email'
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
           />
         </div>
@@ -94,7 +94,6 @@ export const FormRegister = () => {
             type='text'
             id='password'
             name='password'
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
           />
         </div>
@@ -114,9 +113,7 @@ export const FormRegister = () => {
         </div>
 
         <button
-          type='submit'
           className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'
-          onClick={createUser}
           disabled={loading}
         >
           {loading ? (
@@ -144,7 +141,7 @@ export const FormRegister = () => {
             'Crear cuenta'
           )}
         </button>
-      </div>
+      </form>
       <div className='flex gap-1 items-center justify-center mt-3'>
         Ya tienes cuenta
         <Link
