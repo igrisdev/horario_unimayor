@@ -24,7 +24,7 @@ export async function POST(req) {
       data: {
         name,
         code,
-        hours,
+        hours: Number(hours),
         description,
       },
     })
@@ -34,6 +34,7 @@ export async function POST(req) {
       { status: 200 }
     )
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
