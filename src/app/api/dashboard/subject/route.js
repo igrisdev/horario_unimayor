@@ -1,5 +1,4 @@
 import prisma from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
 
 import { NextResponse } from 'next/server'
 
@@ -7,7 +6,6 @@ export async function GET() {
   try {
     const subjects = await prisma.subject.findMany()
 
-    revalidatePath('/dashboard/subject')
     return NextResponse.json(subjects, { status: 200 })
   } catch (error) {
     console.log(error)

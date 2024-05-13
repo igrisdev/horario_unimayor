@@ -1,17 +1,18 @@
-'use client'
-
 import { Axios } from '@/lib/axios'
-import { useState } from 'react'
+import { revalidatePath } from 'next/cache'
 
-export const FormSubject = () => {
-  const [loading, setLoading] = useState(false)
+export async function FormSubject() {
+  const loading = false
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = async (formData) => {
+    'use server'
 
-    const data = new FormData(event.target)
-    const subject = Object.fromEntries(data)
-    setLoading(true)
+    const subject = {
+      name: formData.get('name'),
+      code: formData.get('code'),
+      hours: formData.get('hours'),
+      description: formData.get('description'),
+    }
 
     Axios.post('/api/dashboard/subject', subject)
       .then((res) => {
@@ -20,14 +21,14 @@ export const FormSubject = () => {
       .catch((err) => {
         console.log(err)
       })
-      .finally(() => {
-        setLoading(false)
-      })
+      .finally(() => {})
+
+    revalidatePath('/dashboard/subject')
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      action={handleSubmit}
       className='flex flex-col gap-y-8 w-96'
     >
       <div className='flex flex-col max-w-96'>

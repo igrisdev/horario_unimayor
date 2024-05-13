@@ -1,25 +1,6 @@
-'use client'
-
-import { Axios } from '@/lib/axios'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
-export const TableSubject = () => {
-  const [dataSubjects, setDataSubjects] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  async function getSubjects() {
-    setLoading(true)
-    const { data } = await Axios.get('/api/dashboard/subject')
-
-    setDataSubjects(data)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getSubjects()
-  }, [])
-
+export const TableSubject = ({ dataSubjects }) => {
   return (
     <section class='relative overflow-x-auto shadow-md sm:rounded-lg'>
       <div class='flex gap-x-4 pb-4'>
@@ -125,16 +106,6 @@ export const TableSubject = () => {
           </tr>
         </thead>
         <tbody>
-          {loading && (
-            <tr>
-              <td
-                colSpan={6}
-                className='text-3xl text-center'
-              >
-                Cargando ...
-              </td>
-            </tr>
-          )}
           {dataSubjects.map((subject) => (
             <tr
               key={subject.id}
