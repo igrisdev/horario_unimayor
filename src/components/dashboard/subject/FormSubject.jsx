@@ -1,13 +1,16 @@
-export const FormSubject = async () => {
-  const onSubmit = async (event) => {
-    'use server'
-    console.log('data')
-    const data = new FormData(event.currenTarget)
+'use client'
+
+export const FormSubject = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    const subject = Object.fromEntries(data)
+    console.log(subject)
   }
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       className='flex flex-col gap-y-8 w-96'
     >
       <div className='flex flex-col max-w-96'>
@@ -58,9 +61,7 @@ export const FormSubject = async () => {
         ></textarea>
       </div>
 
-      <button>
-        da
-      </button>
+      <button>da</button>
     </form>
   )
 }
