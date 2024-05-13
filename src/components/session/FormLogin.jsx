@@ -47,7 +47,6 @@ export const FormLogin = () => {
             type='text'
             id='email'
             name='email'
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
           />
         </div>
@@ -62,7 +61,6 @@ export const FormLogin = () => {
             type='text'
             id='password'
             name='password'
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
           />
         </div>
