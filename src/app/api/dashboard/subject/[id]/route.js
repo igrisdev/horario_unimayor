@@ -4,7 +4,8 @@ import prisma from '@/lib/prisma'
 export async function DELETE(req, { params }) {
   try {
     const { id } = params
-    console.log(id)
+
+    console.log(id);
 
     await prisma.subject.delete({
       where: { id },
