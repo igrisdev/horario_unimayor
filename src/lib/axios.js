@@ -5,5 +5,4 @@ export const Axios = axios.create({
     process.env.API_BASE_URL ||
     process.env.API_DEVELOPMENT_URL ||
     process.env.LOCALHOST,
-  withCredentials: true,
 })
