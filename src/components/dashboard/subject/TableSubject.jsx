@@ -58,7 +58,7 @@ export const TableSubject = async () => {
               <td className='px-6 py-4'>{subject.description}</td>
               <td className='px-6 py-4 flex gap-2 flex-wrap'>
                 <Link
-                  href='/dashboard/subject/update'
+                  href={`/dashboard/subject/update/${subject.id}`}
                   className='font-medium text-blue-600 hover:underline'
                 >
                   Actualizar

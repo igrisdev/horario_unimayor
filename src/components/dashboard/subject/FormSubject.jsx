@@ -1,12 +1,29 @@
 import { ButtonLoading } from '@/components/general/ButtonLoading'
-import { createSubject } from '@/lib/actions/subject/actionSubject'
+import {
+  createSubject,
+  updateSubject,
+} from '@/lib/actions/subject/actionSubject'
+import { Axios } from '@/lib/axios'
 
-export async function FormSubject() {
+export async function FormSubject({ isEdit, label, id = null }) {
+  let dataSubject = ''
+  if (id !== null) {
+    const { data } = await Axios.get(`/api/dashboard/subject/${id}`)
+    dataSubject = data
+  }
+
   return (
     <form
-      action={createSubject}
+      action={isEdit ? updateSubject : createSubject}
       className='flex flex-col gap-y-8 w-96'
     >
+      {isEdit && (
+        <input
+          type='hidden'
+          name='id'
+          value={id}
+        />
+      )}
       <div className='flex flex-col max-w-96'>
         <label htmlFor='name'>Nombre de la materia</label>
         <input
@@ -15,6 +32,7 @@ export async function FormSubject() {
           name='name'
           placeholder='Calculo, Ingles ...'
           autoFocus
+          defaultValue={isEdit ? dataSubject.name : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -25,7 +43,7 @@ export async function FormSubject() {
           type='text'
           name='code'
           placeholder='10D0F, FD4 ...'
-          autoFocus
+          defaultValue={isEdit ? dataSubject.code : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -36,7 +54,7 @@ export async function FormSubject() {
           type='number'
           name='hours'
           placeholder='2, 3, 1 ...'
-          autoFocus
+          defaultValue={isEdit ? dataSubject.hours : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -51,11 +69,12 @@ export async function FormSubject() {
           name='description'
           id='description'
           placeholder='lorem ...'
+          defaultValue={isEdit ? dataSubject.description : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500 min-h-10'
         ></textarea>
       </div>
 
-      <ButtonLoading label={'Crear Materia'} />
+      <ButtonLoading label={label} />
     </form>
   )
 }
