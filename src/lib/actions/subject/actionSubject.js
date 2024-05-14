@@ -15,12 +15,7 @@ export async function createSubject(formData) {
 export async function deleteSubject(formData) {
   const id = formData.get('id')
 
-  await prisma.subject.delete({
-    where: { id },
-  })
+  Axios.delete(`/api/dashboard/subject/${id}`)
 
-  /* Axios.delete('/api/dashboard/subject/', id).then((res) => {
-    console.log(res)
-  }) */
   revalidatePath('/dashboard/subject')
 }
