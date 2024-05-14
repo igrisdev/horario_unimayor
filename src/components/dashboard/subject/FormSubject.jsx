@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 export async function FormSubject() {
   const loading = false
 
-  const handleSubmit = async (formData) => {
+  const handleCreateSubject = async (formData) => {
     'use server'
 
     const subject = {
@@ -16,19 +16,21 @@ export async function FormSubject() {
 
     Axios.post('/api/dashboard/subject', subject)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
       })
       .catch((err) => {
-        console.log(err)
+        // console.log(err)
       })
       .finally(() => {})
 
     revalidatePath('/dashboard/subject')
   }
 
+  console.log(loading)
+
   return (
     <form
-      action={handleSubmit}
+      action={handleCreateSubject}
       className='flex flex-col gap-y-8 w-96'
     >
       <div className='flex flex-col max-w-96'>
