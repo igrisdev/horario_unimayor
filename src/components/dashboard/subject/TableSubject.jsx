@@ -2,7 +2,7 @@ import { Axios } from '@/lib/axios'
 import { revalidatePath } from 'next/cache'
 import Link from 'next/link'
 
-export const TableSubject = async ({ dataSubjects }) => {
+export const TableSubject = ({ dataSubjects }) => {
   async function handleDeleteSubject(formData) {
     'use server'
 
@@ -16,7 +16,6 @@ export const TableSubject = async ({ dataSubjects }) => {
         console.log(err)
       })
       .finally(() => {})
-
     revalidatePath('/dashboard/subject')
   }
 
