@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { login } from '@/lib/actions/session/actionSession'
-import { ButtonLoading } from '@/components/session/ButtonLoading'
+import { ButtonLoading } from '@/components/general/ButtonLoading'
 
 export const FormLogin = () => {
   return (
