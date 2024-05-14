@@ -1,5 +1,7 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const adminLinks = [
   { href: '/dashboard/schedule', label: 'Horario' },
@@ -10,10 +12,14 @@ const adminLinks = [
 ]
 
 const AdminLink = ({ href, label }) => {
+  const pathname = usePathname()
+
   return (
     <li>
       <Link
-        className='hover:underline hover:text-amber-500'
+        className={`hover:underline hover:text-amber-500 ${
+          pathname.includes(href) && 'text-amber-500'
+        }`}
         href={href}
       >
         {label}
@@ -23,7 +29,12 @@ const AdminLink = ({ href, label }) => {
 }
 
 export const Navbar = () => {
+  const pathname = usePathname()
+
   const isSession = true
+
+  if (pathname === '/register') return null
+  if (pathname === '/login') return null
 
   return (
     <header className='flex justify-between items-center h-20 px-4'>
