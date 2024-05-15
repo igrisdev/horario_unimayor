@@ -2,8 +2,19 @@
 
 import { useFormStatus } from 'react-dom'
 
-export function ButtonLoading({ label }) {
+export function ButtonLoading({ label, isDelete = false }) {
   const { pending } = useFormStatus()
+
+  if (isDelete) {
+    return (
+      <button
+        disabled={pending}
+        className='font-medium text-red-600 hover:underline'
+      >
+        {label}
+      </button>
+    )
+  }
 
   return (
     <button

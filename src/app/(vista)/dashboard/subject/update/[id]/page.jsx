@@ -1,7 +1,14 @@
 import { FormSubject } from '@/components/dashboard/subject/FormSubject'
+import { Axios } from '@/lib/axios'
 
 export default async function SubjectUpdate({ params }) {
   const { id } = params
+  let dataSubject = []
+
+  if (id !== null) {
+    const { data } = await Axios.get(`/api/dashboard/subject/${id}`)
+    dataSubject = data
+  }
 
   return (
     <main className='mt-32 grid place-content-center'>
@@ -12,6 +19,7 @@ export default async function SubjectUpdate({ params }) {
         isEdit={true}
         label={'Actualizar Materia'}
         id={id}
+        dataSubject={dataSubject}
       />
     </main>
   )

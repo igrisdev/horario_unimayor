@@ -1,20 +1,34 @@
+'use client'
+
 import { ButtonLoading } from '@/components/general/ButtonLoading'
 import {
   createSubject,
   updateSubject,
 } from '@/lib/actions/subject/actionSubject'
-import { Axios } from '@/lib/axios'
+import { toast } from 'sonner'
 
-export async function FormSubject({ isEdit, label, id = null }) {
-  let dataSubject = ''
-  if (id !== null) {
-    const { data } = await Axios.get(`/api/dashboard/subject/${id}`)
-    dataSubject = data
+export async function FormSubject({
+  isEdit,
+  label,
+  id = null,
+  dataSubject = [],
+}) {
+  const handleCreateSubject = async (formData) => {
+    const subject = createSubject(formData)
+
+    toast.promise(subject, {
+      loading: 'Creando ...',
+      success: () => {
+        return `Materia Creada ✅`
+      },
+      error: 'Error al crear la materia',
+      duration: 1000,
+    })
   }
 
   return (
     <form
-      action={isEdit ? updateSubject : createSubject}
+      action={isEdit ? updateSubject : handleCreateSubject}
       className='flex flex-col gap-y-8 w-96'
     >
       {isEdit && (

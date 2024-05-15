@@ -1,7 +1,9 @@
 'use client'
 
-import { deleteSubject } from '@/lib/actions/subject/actionSubject'
 import { toast } from 'sonner'
+
+import { deleteSubject } from '@/lib/actions/subject/actionSubject'
+import { ButtonLoading } from '@/components/general/ButtonLoading'
 
 export default function FormDelete({ id }) {
   const handleDeleteSubject = async (formData) => {
@@ -12,10 +14,13 @@ export default function FormDelete({ id }) {
       success: () => {
         return `Materia Eliminada ✅`
       },
-      error: 'Error al eliminar la materia',
+      error: () => {
+        return 'Error al eliminar la materia'
+      },
       duration: 500,
     })
   }
+
   return (
     <form action={handleDeleteSubject}>
       <input
@@ -23,12 +28,10 @@ export default function FormDelete({ id }) {
         name='id'
         value={id}
       />
-      <button
-        type='submit'
-        className='font-medium text-red-600 hover:underline'
-      >
-        Eliminar
-      </button>
+      <ButtonLoading
+        label={'Eliminar'}
+        isDelete={true}
+      />
     </form>
   )
 }
