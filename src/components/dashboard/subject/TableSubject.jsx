@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Axios } from '@/lib/axios'
-import { deleteSubject } from '@/lib/actions/subject/actionSubject'
+import FormDelete from './FormDelete'
 
 export const TableSubject = async ({ search }) => {
   async function filterSearch(search) {
@@ -74,19 +74,7 @@ export const TableSubject = async ({ search }) => {
                 >
                   Actualizar
                 </Link>
-                <form action={deleteSubject}>
-                  <input
-                    type='hidden'
-                    name='id'
-                    value={subject.id}
-                  />
-                  <button
-                    type='submit'
-                    className='font-medium text-red-600 hover:underline'
-                  >
-                    Eliminar
-                  </button>
-                </form>
+                <FormDelete id={subject.id} />
               </td>
             </tr>
           ))}
