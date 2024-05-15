@@ -3,8 +3,19 @@ import Link from 'next/link'
 import { Axios } from '@/lib/axios'
 import { deleteSubject } from '@/lib/actions/subject/actionSubject'
 
-export const TableSubject = async () => {
-  const { data } = await Axios.get('/api/dashboard/subject')
+export const TableSubject = async ({ search }) => {
+  async function filterSearch(search) {
+    try {
+      const { data } = await Axios.get(
+        `/api/dashboard/subject?search=${search}`
+      )
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const data = (await filterSearch(search)) || []
 
   return (
     <section className='relative overflow-x-auto shadow-md sm:rounded-lg'>

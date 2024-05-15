@@ -2,15 +2,17 @@ import { SearchSubject } from '@/components/dashboard/subject/SearchSubject'
 import { TableSubject } from '@/components/dashboard/subject/TableSubject'
 import { Suspense } from 'react'
 
-export default async function Subject() {
+export default async function Subject({ searchParams }) {
+  const search = searchParams?.search || ''
+
   return (
     <main>
       <SearchSubject />
       <Suspense
-        key={1}
+        key={search}
         fallback={<p>Loading...</p>}
       >
-        <TableSubject />
+        <TableSubject search={search} />
       </Suspense>
     </main>
   )

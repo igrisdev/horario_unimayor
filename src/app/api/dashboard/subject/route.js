@@ -2,8 +2,24 @@ import { NextResponse } from 'next/server'
 
 import prisma from '@/lib/prisma'
 
-export async function GET() {
+export async function GET(req) {
   try {
+    const { searchParams } = new URL(req.url)
+    const search = searchParams.get('search')
+
+    if (search !== '') {
+      const subjects = await prisma.subject.findMany({
+        where: {
+          OR: [
+            { name: { contains: search, mode: 'insensitive' } },
+            { code: { contains: search, mode: 'insensitive' } },
+          ],
+        },
+      })
+
+      return NextResponse.json(subjects, { status: 200 })
+    }
+
     const subjects = await prisma.subject.findMany()
 
     return NextResponse.json(subjects, { status: 200 })

@@ -1,6 +1,25 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 export function SearchSubject() {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const handleSearch = (term) => {
+    const params = new URLSearchParams(searchParams)
+
+    if (term !== '') {
+      params.set('search', term)
+    } else {
+      params.delete('search')
+    }
+
+    replace(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <div className='flex gap-x-4 pb-4'>
       <div className='relative'>
@@ -24,6 +43,8 @@ export function SearchSubject() {
         <input
           type='text'
           id='table-search'
+          defaultValue={searchParams.get('search')}
+          onChange={(event) => handleSearch(event.target.value)}
           className='block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 outline-none'
           placeholder='Search for items'
         />
