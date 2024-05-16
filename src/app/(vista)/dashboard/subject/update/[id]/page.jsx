@@ -11,16 +11,18 @@ export default async function SubjectUpdate({ params }) {
   }
 
   return (
-    <main className='mt-32 grid place-content-center'>
-      <h2 className='text-3xl mb-5 text-center text-white'>
-        Actualizar Materia
-      </h2>
-      <FormSubject
-        isEdit={true}
-        label={'Actualizar Materia'}
-        id={id}
-        dataSubject={dataSubject}
-      />
+    <main className='grid place-content-center h-[calc(100vh-100px)]'>
+      <div className='max-w-md relative flex flex-col p-4 rounded-md text-black bg-white'>
+        <h2 className='text-2xl font-bold mb-2 text-[#1e0e4b] text-center'>
+          Actualizar <span className='text-[#7747ff]'>Materia</span>
+        </h2>
+        <FormSubject
+          isEdit={true}
+          label={'Actualizar Materia'}
+          id={id}
+          dataSubject={dataSubject}
+        />
+      </div>
     </main>
   )
 }

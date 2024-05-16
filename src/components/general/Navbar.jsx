@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const adminLinks = [
-  { href: '/dashboard/schedule', label: 'Horario' },
-  { href: '/dashboard/users', label: 'Usuarios' },
+  { href: '/dashboard/users', label: 'Docente' },
   { href: '/dashboard/subject', label: 'Materias' },
-  { href: '/dashboard/SchoolTerm', label: 'Periodo Académico' },
   { href: '/dashboard/Environment', label: 'Ambiente' },
+  { href: '/dashboard/SchoolTerm', label: 'Periodo Académico' },
+  { href: '/dashboard/schedule', label: 'Horario' },
 ]
 
 const AdminLink = ({ href, label }) => {
