@@ -20,7 +20,7 @@ export default async function SubjectUpdate({ params }) {
           isEdit={true}
           label={'Actualizar Materia'}
           id={id}
-          dataSubject={dataSubject}
+          data={dataSubject}
         />
       </div>
     </main>

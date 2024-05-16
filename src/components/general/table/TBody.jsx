@@ -1,36 +1,47 @@
 import Link from 'next/link'
 import { FormDelete } from '../form/FormDelete'
 
+const TableRow = ({ item, keys, url, label }) => {
+  return (
+    <tr className='bg-white border-b hover:bg-gray-200 text-black'>
+      {keys.map((key) => (
+        <td
+          key={`${item.id}-${key}`}
+          className='px-6 py-4'
+        >
+          {item[key]}
+        </td>
+      ))}
+
+      <td className='px-6 py-4 flex gap-2 flex-wrap'>
+        <Link
+          href={`${url}${item.id}`}
+          className='font-medium text-blue-600 hover:underline'
+        >
+          Actualizar
+        </Link>
+        <FormDelete
+          id={item.id}
+          label={label}
+        />
+      </td>
+    </tr>
+  )
+}
+
 export const TBody = ({ rows = [], url, label }) => {
+  const keys = Object.keys(rows[0] || {}).filter((key) => key !== 'id')
+
   return (
     <tbody>
       {rows.map((row) => (
-        <tr
+        <TableRow
           key={row.id}
-          className='bg-white border-b hover:bg-gray-50 '
-        >
-          <th
-            scope='row'
-            className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
-          >
-            {row.name}
-          </th>
-          <td className='px-6 py-4'>{row.code}</td>
-          <td className='px-6 py-4'>{row.hours}</td>
-          <td className='px-6 py-4'>{row.description}</td>
-          <td className='px-6 py-4 flex gap-2 flex-wrap'>
-            <Link
-              href={`${url}${row.id}`}
-              className='font-medium text-blue-600 hover:underline'
-            >
-              Actualizar
-            </Link>
-            <FormDelete
-              id={row.id}
-              label={label}
-            />
-          </td>
-        </tr>
+          item={row}
+          url={url}
+          label={label}
+          keys={keys}
+        />
       ))}
     </tbody>
   )

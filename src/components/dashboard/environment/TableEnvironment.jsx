@@ -3,32 +3,29 @@ import { Axios } from '@/lib/axios'
 import { THead } from '@/components/general/table/THead'
 import { TBody } from '@/components/general/table/TBody'
 
-export const TableSubject = async ({ search }) => {
+export const TableEnvironment = async ({ search }) => {
   const columns = [
     {
-      label: 'Nombre Materia',
+      label: 'Tipo de ambiente',
     },
     {
-      label: 'Código',
+      label: 'Sede',
     },
     {
-      label: '# Horas',
-    },
-    {
-      label: 'Descripción',
+      label: 'Ambiente',
     },
     {
       label: '',
     },
   ]
 
-  const urlUpdate = '/dashboard/subject/update/'
-  const labelDelete = 'Eliminar Materia'
+  const urlUpdate = '/dashboard/environment/update/'
+  const labelDelete = 'Eliminar Ambiente'
 
   async function filterSearch(search) {
     try {
       const { data } = await Axios.get(
-        `/api/dashboard/subject?search=${search}`
+        `/api/dashboard/environment?search=${search}`
       )
       return data
     } catch (error) {

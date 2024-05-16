@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 
-import { TableSubject } from '@/components/dashboard/subject/TableSubject'
 import { Search } from '@/components/general/Search'
+import { TableEnvironment } from '@/components/dashboard/environment/TableEnvironment'
 
 export default async function Environment({ searchParams }) {
   const search = searchParams?.search || ''
@@ -19,7 +19,7 @@ export default async function Environment({ searchParams }) {
         key={search}
         fallback={<p>Loading...</p>}
       >
-        <TableSubject search={search} />
+        <TableEnvironment search={search} />
       </Suspense>
     </main>
   )
