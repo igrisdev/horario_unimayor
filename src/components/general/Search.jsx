@@ -21,7 +21,7 @@ export function Search({ url, label }) {
   }
 
   return (
-    <div className='flex gap-x-4 pb-4'>
+    <div className='flex flex-col sm:flex-row gap-4 pb-4'>
       <div className='relative'>
         <div className='absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none'>
           <svg
@@ -45,14 +45,14 @@ export function Search({ url, label }) {
           id='table-search'
           defaultValue={searchParams.get('search')}
           onChange={(event) => handleSearch(event.target.value)}
-          className='block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 outline-none'
+          className='w-full sm:w-80 block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 outline-none'
           placeholder='Search for items'
         />
       </div>
 
       <Link
         href={url}
-        className='text-black font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-amber-500 transition-colors hover:bg-amber-200'
+        className='w-max ml-auto sm:ml-0 text-black font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-amber-500 transition-colors hover:bg-amber-200'
       >
         {label}
         <svg
