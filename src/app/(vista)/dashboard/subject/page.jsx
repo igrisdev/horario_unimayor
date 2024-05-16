@@ -19,7 +19,7 @@ export default async function Subject({ searchParams }) {
         key={search}
         fallback={<p>Loading...</p>}
       >
-        <TableSubject search={search} />
+        <TableSubject search={search} type={'subject'} />
       </Suspense>
     </main>
   )

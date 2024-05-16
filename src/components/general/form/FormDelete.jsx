@@ -4,12 +4,21 @@ import { toast } from 'sonner'
 
 import { deleteSubject } from '@/lib/actions/subject/actionSubject'
 import { ButtonLoading } from '@/components/general/ButtonLoading'
+import { deleteEnvironment } from '@/lib/actions/environment/actionEnvironment'
 
-export function FormDelete({ id, label }) {
+export function FormDelete({ id, label, type }) {
   const handleDeleteSubject = async (formData) => {
-    const subject = deleteSubject(formData)
+    console.log(type)
+    let promise
+    if (type === 'subject') {
+      promise = deleteSubject(formData)
+    }
 
-    toast.promise(subject, {
+    if (type === 'environment') {
+      promise = deleteEnvironment(formData)
+    }
+
+    toast.promise(promise, {
       loading: 'Eliminando ...',
       success: () => {
         return `${label} ✅`

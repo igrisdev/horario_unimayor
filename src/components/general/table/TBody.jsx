@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FormDelete } from '../form/FormDelete'
 
-const TableRow = ({ item, keys, url, label }) => {
+const TableRow = ({ item, keys, url, label, type }) => {
   return (
     <tr className='bg-white border-b hover:bg-gray-200 text-black'>
       {keys.map((key) => (
@@ -23,13 +23,14 @@ const TableRow = ({ item, keys, url, label }) => {
         <FormDelete
           id={item.id}
           label={label}
+          type={type}
         />
       </td>
     </tr>
   )
 }
 
-export const TBody = ({ rows = [], url, label }) => {
+export const TBody = ({ rows = [], url, label, type }) => {
   const keys = Object.keys(rows[0] || {}).filter((key) => key !== 'id')
 
   return (
@@ -41,6 +42,7 @@ export const TBody = ({ rows = [], url, label }) => {
           url={url}
           label={label}
           keys={keys}
+          type={type}
         />
       ))}
     </tbody>

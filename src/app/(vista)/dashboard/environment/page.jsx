@@ -19,7 +19,7 @@ export default async function Environment({ searchParams }) {
         key={search}
         fallback={<p>Loading...</p>}
       >
-        <TableEnvironment search={search} />
+        <TableEnvironment search={search} type='environment' />
       </Suspense>
     </main>
   )

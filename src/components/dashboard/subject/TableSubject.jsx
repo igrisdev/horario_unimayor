@@ -3,7 +3,7 @@ import { Axios } from '@/lib/axios'
 import { THead } from '@/components/general/table/THead'
 import { TBody } from '@/components/general/table/TBody'
 
-export const TableSubject = async ({ search }) => {
+export const TableSubject = async ({ search, type }) => {
   const columns = [
     {
       label: 'Nombre Materia',
@@ -46,6 +46,7 @@ export const TableSubject = async ({ search }) => {
           rows={rows}
           url={urlUpdate}
           label={labelDelete}
+          type={type}
         />
       </table>
     </section>
