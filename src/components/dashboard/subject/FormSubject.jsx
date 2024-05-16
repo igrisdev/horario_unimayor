@@ -7,12 +7,7 @@ import {
 } from '@/lib/actions/subject/actionSubject'
 import { toast } from 'sonner'
 
-export async function FormSubject({
-  isEdit,
-  label,
-  id = null,
-  dataSubject = [],
-}) {
+export function FormSubject({ isEdit, label, id = null, data = [] }) {
   const handleCreateSubject = async (formData) => {
     const subject = createSubject(formData)
 
@@ -46,7 +41,7 @@ export async function FormSubject({
           name='name'
           placeholder='Calculo, Ingles ...'
           autoFocus
-          defaultValue={isEdit ? dataSubject.name : ''}
+          defaultValue={isEdit ? data.name : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -57,7 +52,7 @@ export async function FormSubject({
           type='text'
           name='code'
           placeholder='10D0F, FD4 ...'
-          defaultValue={isEdit ? dataSubject.code : ''}
+          defaultValue={isEdit ? data.code : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -68,7 +63,7 @@ export async function FormSubject({
           type='number'
           name='hours'
           placeholder='2, 3, 1 ...'
-          defaultValue={isEdit ? dataSubject.hours : ''}
+          defaultValue={isEdit ? data.hours : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -83,7 +78,7 @@ export async function FormSubject({
           name='description'
           id='description'
           placeholder='lorem ...'
-          defaultValue={isEdit ? dataSubject.description : ''}
+          defaultValue={isEdit ? data.description : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500 min-h-10'
         ></textarea>
       </div>

@@ -1,25 +1,18 @@
 'use client'
 
 import { ButtonLoading } from '@/components/general/ButtonLoading'
-import {
-  createSubject,
-  updateSubject,
-} from '@/lib/actions/subject/actionSubject'
+import { createEnvironment, updateEnvironment } from '@/lib/actions/environment/actionEnvironment'
+
 import { toast } from 'sonner'
 
-export async function FormEnvironment({
-  isEdit,
-  label,
-  id = null,
-  dataSubject = [],
-}) {
+export function FormEnvironment({ isEdit, label, id = null, data = [] }) {
   const handleCreateEnvironment = async (formData) => {
-    const subject = createSubject(formData)
+    const subject = createEnvironment(formData)
 
     toast.promise(subject, {
       loading: 'Creando ...',
       success: () => {
-        return `Materia Creada ✅`
+        return `Ambiente Creado ✅`
       },
       error: 'Error al crear la materia',
       duration: 1000,
@@ -28,7 +21,7 @@ export async function FormEnvironment({
 
   return (
     <form
-      action={isEdit ? updateSubject : handleCreateEnvironment}
+      action={isEdit ? updateEnvironment : handleCreateEnvironment}
       className='flex flex-col gap-y-8 w-96'
     >
       {isEdit && (
@@ -39,53 +32,43 @@ export async function FormEnvironment({
         />
       )}
       <div className='flex flex-col max-w-96'>
-        <label htmlFor='name'>Nombre de la materia</label>
-        <input
-          id='name'
-          type='text'
-          name='name'
-          placeholder='Calculo, Ingles ...'
-          autoFocus
-          defaultValue={isEdit ? dataSubject.name : ''}
-          className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
-        />
+        <label htmlFor='typeEnvironment'>Tipo de ambiente</label>
+        <select
+          id='typeEnvironment'
+          name='typeEnvironment'
+          defaultValue={isEdit ? data.typeEnvironment : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+          <option value='salon'>Salon</option>
+          <option value='sala'>Sala</option>
+        </select>
       </div>
       <div className='flex flex-col max-w-96'>
-        <label htmlFor='code'>Código de la materia</label>
-        <input
-          id='code'
-          type='text'
-          name='code'
-          placeholder='10D0F, FD4 ...'
-          defaultValue={isEdit ? dataSubject.code : ''}
-          className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
-        />
+        <label htmlFor='side'>Seleccionar la sede</label>
+        <select
+          id='side'
+          name='side'
+          defaultValue={isEdit ? data.side : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+          <option value='encarnacion'>Encarnación</option>
+          <option value='bicentenario'>Bicentenario</option>
+        </select>
       </div>
       <div className='flex flex-col max-w-96'>
-        <label htmlFor='hours'>Cantidad de horas de la materia</label>
-        <input
-          id='hours'
-          type='number'
-          name='hours'
-          placeholder='2, 3, 1 ...'
-          defaultValue={isEdit ? dataSubject.hours : ''}
-          className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
-        />
-      </div>
-      <div className='flex flex-col max-w-96'>
-        <label htmlFor='description'>Descripción de la materia</label>
-        <textarea
-          style={{
-            'field-sizing': 'content',
-            resize: 'none',
-            'max-height': '300px',
-          }}
-          name='description'
-          id='description'
-          placeholder='lorem ...'
-          defaultValue={isEdit ? dataSubject.description : ''}
-          className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500 min-h-10'
-        ></textarea>
+        <label htmlFor='location'>Seleccionar el ambiente</label>
+        <select
+          id='location'
+          name='location'
+          defaultValue={isEdit ? data.location : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+          <option value='salon_300'>salon 300</option>
+          <option value='salon_301'>salon 301</option>
+        </select>
       </div>
 
       <ButtonLoading label={label} />
