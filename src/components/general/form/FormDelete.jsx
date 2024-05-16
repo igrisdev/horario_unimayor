@@ -5,17 +5,17 @@ import { toast } from 'sonner'
 import { deleteSubject } from '@/lib/actions/subject/actionSubject'
 import { ButtonLoading } from '@/components/general/ButtonLoading'
 
-export default function FormDelete({ id }) {
+export function FormDelete({ id, label }) {
   const handleDeleteSubject = async (formData) => {
     const subject = deleteSubject(formData)
 
     toast.promise(subject, {
       loading: 'Eliminando ...',
       success: () => {
-        return `Materia Eliminada ✅`
+        return `${label} ✅`
       },
       error: () => {
-        return 'Error al eliminar la materia'
+        return `Error ${label}`
       },
       duration: 500,
     })

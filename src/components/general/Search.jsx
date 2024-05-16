@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-export function SearchSubject() {
+export function Search({ url, label }) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -51,10 +51,10 @@ export function SearchSubject() {
       </div>
 
       <Link
-        href='/dashboard/subject/create'
+        href={url}
         className='text-black font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-amber-500 transition-colors hover:bg-amber-200'
       >
-        Crear Materia
+        {label}
         <svg
           className='rtl:rotate-180 w-3.5 h-3.5 ms-2'
           aria-hidden='true'
