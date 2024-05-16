@@ -1,7 +1,10 @@
 'use client'
 
 import { ButtonLoading } from '@/components/general/ButtonLoading'
-import { createEnvironment, updateEnvironment } from '@/lib/actions/environment/actionEnvironment'
+import {
+  createEnvironment,
+  updateEnvironment,
+} from '@/lib/actions/environment/actionEnvironment'
 import { useRef } from 'react'
 
 import { toast } from 'sonner'
@@ -14,6 +17,7 @@ export function FormEnvironment({ isEdit, label, id = null, data = [] }) {
     toast.promise(subject, {
       loading: 'Creando ...',
       success: () => {
+        ref.current.reset()
         return `Ambiente Creado ✅`
       },
       error: 'Error al crear la materia',
