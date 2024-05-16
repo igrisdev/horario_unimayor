@@ -5,15 +5,19 @@ import {
   createSubject,
   updateSubject,
 } from '@/lib/actions/subject/actionSubject'
+import { useRef } from 'react'
 import { toast } from 'sonner'
 
 export function FormSubject({ isEdit, label, id = null, data = [] }) {
+  const ref = useRef()
+
   const handleCreateSubject = async (formData) => {
     const subject = createSubject(formData)
 
     toast.promise(subject, {
       loading: 'Creando ...',
       success: () => {
+        ref.current.reset()
         return `Materia Creada ✅`
       },
       error: 'Error al crear la materia',
@@ -23,6 +27,7 @@ export function FormSubject({ isEdit, label, id = null, data = [] }) {
 
   return (
     <form
+      ref={ref}
       action={isEdit ? updateSubject : handleCreateSubject}
       className='flex flex-col gap-y-8 w-96'
     >

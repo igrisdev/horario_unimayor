@@ -2,10 +2,12 @@
 
 import { ButtonLoading } from '@/components/general/ButtonLoading'
 import { createEnvironment, updateEnvironment } from '@/lib/actions/environment/actionEnvironment'
+import { useRef } from 'react'
 
 import { toast } from 'sonner'
 
 export function FormEnvironment({ isEdit, label, id = null, data = [] }) {
+  const ref = useRef()
   const handleCreateEnvironment = async (formData) => {
     const subject = createEnvironment(formData)
 
@@ -21,6 +23,7 @@ export function FormEnvironment({ isEdit, label, id = null, data = [] }) {
 
   return (
     <form
+      ref={ref}
       action={isEdit ? updateEnvironment : handleCreateEnvironment}
       className='flex flex-col gap-y-8 w-96'
     >

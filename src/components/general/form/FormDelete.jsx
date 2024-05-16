@@ -8,7 +8,6 @@ import { deleteEnvironment } from '@/lib/actions/environment/actionEnvironment'
 
 export function FormDelete({ id, label, type }) {
   const handleDeleteSubject = async (formData) => {
-    console.log(type)
     let promise
     if (type === 'subject') {
       promise = deleteSubject(formData)
