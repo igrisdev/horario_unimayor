@@ -6,8 +6,8 @@ import { usePathname } from 'next/navigation'
 const adminLinks = [
   { href: '/dashboard/users', label: 'Docente' },
   { href: '/dashboard/subject', label: 'Materias' },
-  { href: '/dashboard/Environment', label: 'Ambiente' },
-  { href: '/dashboard/SchoolTerm', label: 'Periodo Académico' },
+  { href: '/dashboard/environment', label: 'Ambiente' },
+  { href: '/dashboard/schoolTerm', label: 'Periodo Académico' },
   { href: '/dashboard/schedule', label: 'Horario' },
 ]
 
