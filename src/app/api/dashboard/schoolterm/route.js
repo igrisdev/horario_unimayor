@@ -8,22 +8,18 @@ export async function GET(req) {
     const search = searchParams.get('search')
 
     if (search !== '') {
-      const environments = await prisma.schoolTerm.findMany({
+      const schoolterms = await prisma.SchoolTerm.findMany({
         where: {
-          OR: [
-            { typeEnvironment: { contains: search, mode: 'insensitive' } },
-            { side: { contains: search, mode: 'insensitive' } },
-            { location: { contains: search, mode: 'insensitive' } },
-          ],
+          OR: [{ name: { contains: search, mode: 'insensitive' } }],
         },
       })
 
-      return NextResponse.json(environments, { status: 200 })
+      return NextResponse.json(schoolterms, { status: 200 })
     }
 
-    const environments = await prisma.schoolTerm.findMany()
+    const schoolterms = await prisma.SchoolTerm.findMany()
 
-    return NextResponse.json(environments, { status: 200 })
+    return NextResponse.json(schoolterms, { status: 200 })
   } catch (error) {
     console.log(error)
     return NextResponse.json(
@@ -35,18 +31,19 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const { typeEnvironment, side, location } = await req.json()
+    const { name, dateStart, dateEnd, state } = await req.json()
 
-    await prisma.schoolTerm.create({
+    await prisma.SchoolTerm.create({
       data: {
-        typeEnvironment,
-        side,
-        location,
+        name,
+        dateStart: new Date(dateStart),
+        dateEnd: new Date(dateEnd),
+        state: state == 'true' ? true : false,
       },
     })
 
     return NextResponse.json(
-      { message: 'Ambiente creada con éxito' },
+      { message: 'Periodo académico creado con éxito' },
       { status: 200 }
     )
   } catch (error) {

@@ -5,11 +5,11 @@ export async function GET(req, { params }) {
   try {
     const { id } = params
 
-    const foundEnvironment = await prisma.environment.findUnique({
+    const foundSchoolTerm = await prisma.SchoolTerm.findUnique({
       where: { id },
     })
 
-    return NextResponse.json(foundEnvironment, { status: 200 })
+    return NextResponse.json(foundSchoolTerm, { status: 200 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },
@@ -21,17 +21,22 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const { id } = params
-    const { typeEnvironment, side, location } = await req.json()
+    const { name, dateStart, dateEnd, state } = await req.json()
 
-    await prisma.environment.update({
+    await prisma.SchoolTerm.update({
       where: {
         id,
       },
-      data: { typeEnvironment, side, location },
+      data: {
+        name,
+        dateStart: new Date(dateStart),
+        dateEnd: new Date(dateEnd),
+        state: state == 'true' ? true : false,
+      },
     })
 
     return NextResponse.json(
-      { message: 'Ambiente actualizado con éxito' },
+      { message: 'Periodo Académico actualizado con éxito' },
       { status: 200 }
     )
   } catch (error) {
@@ -47,14 +52,12 @@ export async function DELETE(req, { params }) {
   try {
     const { id } = params
 
-    console.log(id)
-
-    await prisma.environment.delete({
+    await prisma.SchoolTerm.delete({
       where: { id },
     })
 
     return NextResponse.json(
-      { message: 'Ambiente eliminada con éxito' },
+      { message: 'Periodo Académico eliminada con éxito' },
       { status: 200 }
     )
   } catch (error) {

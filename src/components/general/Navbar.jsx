@@ -8,7 +8,7 @@ const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
   { href: '/dashboard/subject', label: 'Materias' },
   { href: '/dashboard/environment', label: 'Ambiente' },
-  { href: '/dashboard/schoolTerm', label: 'Periodo Académico' },
+  { href: '/dashboard/schoolterm', label: 'Periodo Académico' },
   { href: '/dashboard/schedule', label: 'Horario' },
 ]
 
