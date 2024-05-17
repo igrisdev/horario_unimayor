@@ -2,10 +2,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const adminLinks = [
-  { href: '/dashboard/users', label: 'Docente' },
+  { href: '/dashboard/user', label: 'Usuario' },
   { href: '/dashboard/subject', label: 'Materias' },
   { href: '/dashboard/environment', label: 'Ambiente' },
   { href: '/dashboard/schoolTerm', label: 'Periodo Académico' },
