@@ -3,32 +3,41 @@ import { Axios } from '@/lib/axios'
 import { THead } from '@/components/general/table/THead'
 import { TBody } from '@/components/general/table/TBody'
 
-export const TableSchoolTerm = async ({ search, type }) => {
+export const TableSchedule = async ({ search, type }) => {
   const columns = [
     {
-      label: 'Nombre Periodo Académico',
+      label: 'Dia de la semana',
     },
     {
-      label: 'Fecha Inicio del semestre',
+      label: 'Hora de inicio',
     },
     {
-      label: 'Fecha fin del semestre',
+      label: 'Hora de fin',
     },
     {
-      label: 'Estado',
+      label: 'periodo académico',
+    },
+    {
+      label: 'Usuario',
+    },
+    {
+      label: 'Ambiente',
+    },
+    {
+      label: 'Materia',
     },
     {
       label: '',
     },
   ]
 
-  const urlUpdate = '/dashboard/schoolterm/update/'
-  const labelDelete = 'Eliminar Periodo Académico'
+  const urlUpdate = '/dashboard/schedule/update/'
+  const labelDelete = 'Eliminar Horario'
 
   async function filterSearch(search) {
     try {
       const { data } = await Axios.get(
-        `/api/dashboard/schoolterm?search=${search}`
+        `/api/dashboard/schedule?search=${search}`
       )
       return data
     } catch (error) {
@@ -40,10 +49,13 @@ export const TableSchoolTerm = async ({ search, type }) => {
     (await filterSearch(search)).map((row) => {
       return {
         id: row.id,
-        name: row.name,
-        dateStart: row.dateStart.substring(0, 10),
-        dateEnd: row.dateEnd.substring(0, 10),
-        state: row.state ? 'Activo' : 'Inactivo',
+        day: row.day,
+        hourStart: row.hourStart.substring(0, 10),
+        hourEnd: row.hourEnd.substring(0, 10),
+        schoolTermId: row.schoolTerm.name,
+        userId: row.user.firstName + ' ' + row.user.lastName,
+        environmentId: row.environment.typeEnvironment,
+        subjectId: row.subject.name,
       }
     }) || []
 
