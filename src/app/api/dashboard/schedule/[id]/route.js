@@ -45,8 +45,8 @@ export async function PUT(req, { params }) {
       },
       data: {
         day,
-        hourStart: new Date(hourStart),
-        hourEnd: new Date(hourEnd),
+        hourStart,
+        hourEnd,
         schoolTermId,
         userId,
         environmentId,

@@ -1,6 +1,33 @@
+import { Axios } from '@/lib/axios'
+
 import { FormSchedule } from '@/components/dashboard/schedule/FormSchedule'
 
-export default function SubjectCreate() {
+export default async function SubjectCreate() {
+  let dataSubject = []
+
+  const rows = []
+
+  const { data: schoolterm } = await Axios.get(
+    `/api/dashboard/schoolterm?search`
+  )
+
+  const { data: user } = await Axios.get(`/api/dashboard/user?search`)
+
+  const { data: environment } = await Axios.get(
+    `/api/dashboard/environment?search`
+  )
+
+  const { data: subject } = await Axios.get(`/api/dashboard/subject?search`)
+
+  rows.push({
+    allSchoolTerm: schoolterm,
+    allUser: user,
+    allEnvironment: environment,
+    allSubject: subject,
+  })
+
+  dataSubject = rows
+
   return (
     <main className='grid place-content-center h-[calc(100vh-100px)]'>
       <div className='max-w-md relative flex flex-col p-4 rounded-md text-black bg-white'>
@@ -11,6 +38,7 @@ export default function SubjectCreate() {
         <FormSchedule
           isEdit={false}
           label={'Crear Periodo Académico'}
+          data={dataSubject}
         />
       </div>
     </main>

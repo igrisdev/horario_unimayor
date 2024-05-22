@@ -13,12 +13,41 @@ export async function GET(req) {
           OR: [
             {
               day: { contains: search, mode: 'insensitive' },
-              schoolTermId: { contains: search, mode: 'insensitive' },
-              userId: { contains: search, mode: 'insensitive' },
-              environmentId: { contains: search, mode: 'insensitive' },
-              subjectId: { contains: search, mode: 'insensitive' },
+            },
+            {
+              schoolTerm: {
+                name: { contains: search, mode: 'insensitive' },
+              },
+            },
+            {
+              user: {
+                OR: [
+                  {
+                    firstName: { contains: search, mode: 'insensitive' },
+                  },
+                  {
+                    lastName: { contains: search, mode: 'insensitive' },
+                  },
+                ],
+              },
+            },
+            {
+              environment: {
+                typeEnvironment: { contains: search, mode: 'insensitive' },
+              },
+            },
+            {
+              subject: {
+                name: { contains: search, mode: 'insensitive' },
+              },
             },
           ],
+        },
+        include: {
+          schoolTerm: true,
+          user: true,
+          environment: true,
+          subject: true,
         },
       })
 
@@ -35,8 +64,6 @@ export async function GET(req) {
       },
     })
 
-    console.log(schedules)
-
     return NextResponse.json(schedules, { status: 200 })
   } catch (error) {
     console.log(error)
@@ -51,6 +78,7 @@ export async function POST(req) {
   try {
     const {
       day,
+      hours,
       hourStart,
       hourEnd,
       schoolTermId,
@@ -62,8 +90,8 @@ export async function POST(req) {
     await prisma.schedule.create({
       data: {
         day,
-        hourStart: new Date(hourStart),
-        hourEnd: new Date(hourEnd),
+        hourStart,
+        hourEnd,
         schoolTermId,
         userId,
         environmentId,

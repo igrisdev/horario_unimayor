@@ -9,6 +9,9 @@ export const TableSchedule = async ({ search, type }) => {
       label: 'Dia de la semana',
     },
     {
+      label: 'Cantidad de horas',
+    },
+    {
       label: 'Hora de inicio',
     },
     {
@@ -39,6 +42,7 @@ export const TableSchedule = async ({ search, type }) => {
       const { data } = await Axios.get(
         `/api/dashboard/schedule?search=${search}`
       )
+      console.log(data)
       return data
     } catch (error) {
       console.log(error)
@@ -50,6 +54,7 @@ export const TableSchedule = async ({ search, type }) => {
       return {
         id: row.id,
         day: row.day,
+        hours: row.subject.hours,
         hourStart: row.hourStart.substring(0, 10),
         hourEnd: row.hourEnd.substring(0, 10),
         schoolTermId: row.schoolTerm.name,

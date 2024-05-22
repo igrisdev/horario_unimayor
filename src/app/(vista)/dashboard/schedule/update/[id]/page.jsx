@@ -13,6 +13,7 @@ export default async function SubjectUpdate({ params }) {
         return {
           id: row.id,
           day: row.day,
+          hours: row.subject.hours,
           hourStart: row.hourStart.substring(0, 10),
           hourEnd: row.hourEnd.substring(0, 10),
           schoolTermId: row.schoolTerm.id,

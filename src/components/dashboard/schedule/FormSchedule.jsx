@@ -58,12 +58,37 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
       </div>
 
       <div className='flex flex-col max-w-96'>
+        <label htmlFor='subjectId'>Materia</label>
+        <select
+          id='subjectId'
+          name='subjectId'
+          defaultValue={isEdit ? data[0].subjectId : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+
+          {data.map((item) => {
+            return item.allSubject?.map((subject) => {
+              return (
+                <option
+                  key={subject.id}
+                  value={subject.id}
+                >
+                  {subject.name} ({subject.hours} horas)
+                </option>
+              )
+            })
+          })}
+        </select>
+      </div>
+
+      <div className='flex flex-col max-w-96'>
         <label htmlFor='hourStart'>Hora de inicio</label>
         <input
           id='hourStart'
           type='time'
           name='hourStart'
-          // defaultValue={isEdit ? data?.hourStart : ''}
+          defaultValue={isEdit ? data[0]?.hourStart : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -74,7 +99,7 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
           id='hourEnd'
           type='time'
           name='hourEnd'
-          // defaultValue={isEdit ? data?.hourEnd : ''}
+          defaultValue={isEdit ? data[0]?.hourEnd : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>
@@ -97,6 +122,56 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
                   value={schoolTerm.id}
                 >
                   {schoolTerm.name}
+                </option>
+              )
+            })
+          })}
+        </select>
+      </div>
+
+      <div className='flex flex-col max-w-96'>
+        <label htmlFor='userId'>Usuario</label>
+        <select
+          id='userId'
+          name='userId'
+          defaultValue={isEdit ? data[0].userId : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+
+          {data.map((item) => {
+            return item.allUser?.map((user) => {
+              return (
+                <option
+                  key={user.id}
+                  value={user.id}
+                >
+                  {user.firstName + ' ' + user.lastName}
+                </option>
+              )
+            })
+          })}
+        </select>
+      </div>
+
+      <div className='flex flex-col max-w-96'>
+        <label htmlFor='environmentId'>Ambiente</label>
+        <select
+          id='environmentId'
+          name='environmentId'
+          defaultValue={isEdit ? data[0].environmentId : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+
+          {data.map((item) => {
+            return item.allEnvironment?.map((environment) => {
+              return (
+                <option
+                  key={environment.id}
+                  value={environment.id}
+                >
+                  {environment.typeEnvironment}
                 </option>
               )
             })

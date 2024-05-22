@@ -45,8 +45,8 @@ model SchoolTerm {
 model Schedule {
   id            String      @id @default(cuid())
   day           String
-  hourStart     DateTime
-  hourEnd       DateTime
+  hourStart     String
+  hourEnd       String
   schoolTermId  String
   schoolTerm    SchoolTerm  @relation(fields: [schoolTermId], references: [id]) // peridodo academico
   userId        String
