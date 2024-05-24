@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 export function TableScheduleMain({ subjects }) {
-  const [schedule, setSchedule] = useState([
+  const [schedule] = useState([
     ['horas', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
     ['07:00', '', '', '', '', '', ''],
     ['08:00', '', '', '', '', '', ''],
@@ -22,48 +22,70 @@ export function TableScheduleMain({ subjects }) {
     ['22:00', '', '', '', '', '', ''],
   ])
 
+  console.log(subjects)
   return (
     <main className=''>
       <h2>Horario de este semestre</h2>
       <section>
-        <table className='w-full'>
+        <table className='w-full border-collapse border'>
           <thead>
             <tr>
               {schedule[0].map((subject) => (
-                <th key={subject}>{subject}</th>
+                <th
+                  key={subject}
+                  className='border border-slate-600'
+                >
+                  {subject}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {schedule.slice(1).map((row, index) => (
               <tr key={index}>
-                <td>{row[0]}</td>
+                <td className='border border-slate-600'>{row[0]}</td>
                 {row.slice(1).map((_, colIndex) => {
-                  const matchingSubject = subjects.find(
-                    (materia) =>
+                  const matchingSubject = subjects.find((materia) => {
+                    return (
                       materia.day === colIndex &&
-                      parseInt(materia.hourStart.split(':')[0]) === index + 7 &&
-                      parseInt(materia.hourEnd.split(':')[0]) > index + 7
-                  )
+                      materia.hourStart === row[0] &&
+                      parseInt(materia.hourEnd.split(':')[0]) >
+                        row[0].split(':')[0]
+                    )
+                  })
 
                   if (matchingSubject) {
                     const endHour = parseInt(
-                      matchingSubject.hourEnd.split(':')[0]
+                      matchingSubject.hourEnd.split(':')[0] -
+                        matchingSubject.hourStart.split(':')[0]
                     )
+
                     return (
                       <td
                         key={`${index}-${colIndex}`}
-                        rowSpan={endHour - (index + 7)}
-                        className='bg-red-500/10'
+                        rowSpan={endHour}
+                        className='bg-green-500/10 text-center'
                       >
-                        <div>{matchingSubject.subject}</div>
-                        <div>{matchingSubject.day}</div>
-                        <div>{matchingSubject.hourStart}</div>
-                        <div>{matchingSubject.hourEnd}</div>
+                        <div className='font-bold'>
+                          {matchingSubject.subject}
+                        </div>
+                        <div className='flex gap-2 justify-center w-full mt-2 font-medium'>
+                          <div>Docente</div>-
+                          <div>{matchingSubject.teacher}</div>
+                        </div>
+                        <div className='flex gap-2 justify-center w-full mt-2'>
+                          <div>{matchingSubject.hourStart}</div>-
+                          <div>{matchingSubject.hourEnd}</div>
+                        </div>
                       </td>
                     )
                   }
-                  return <td key={`${index}-${colIndex}`}></td>
+                  return (
+                    <td
+                      key={`${index}-${colIndex}`}
+                      className='border border-slate-600'
+                    ></td>
+                  )
                 })}
               </tr>
             ))}

@@ -53,7 +53,7 @@ export default async function SubjectUpdate({ params }) {
     <main className='grid place-content-center h-[calc(100vh-100px)]'>
       <div className='max-w-md relative flex flex-col p-4 rounded-md text-black bg-white'>
         <h2 className='text-2xl font-bold mb-2 text-[#1e0e4b] text-center'>
-          Actualizar <span className='text-[#7747ff]'>Periodo Académico</span>
+          Actualizar <span className='text-[#7747ff]'>Horario</span>
         </h2>
         <FormSchedule
           isEdit={true}

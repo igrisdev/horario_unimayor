@@ -11,31 +11,8 @@ export default async function Home() {
     subject: item.subject.name,
     hourStart: item.hourStart.substring(0, 10),
     hourEnd: item.hourEnd.substring(0, 10),
+    teacher: item.user.firstName + ' ' + item.user.lastName,
   }))
-
-  /* const materias = [
-    {
-      day: parseIntDay('sábado'),
-      subject: 'Cálculo 1',
-      hoursStart: '07:00',
-      hoursEnd: '10:00',
-      docente: 'Juan',
-    },
-    {
-      day: parseIntDay('lunes'),
-      subject: 'Ingles',
-      hoursStart: '07:00',
-      hoursEnd: '10:00',
-      docente: 'Juan',
-    },
-    {
-      day: parseIntDay('miércoles'),
-      subject: 'Estadística',
-      hoursStart: '15:00',
-      hoursEnd: '18:00',
-      docente: 'Juan',
-    },
-  ] */
 
   function parseIntDay(day) {
     const dayMap = {
