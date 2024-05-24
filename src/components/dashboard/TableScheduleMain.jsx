@@ -22,7 +22,6 @@ export function TableScheduleMain({ subjects }) {
     ['22:00', '', '', '', '', '', ''],
   ])
 
-  console.log(subjects)
   return (
     <main className=''>
       <h2>Horario de este semestre</h2>

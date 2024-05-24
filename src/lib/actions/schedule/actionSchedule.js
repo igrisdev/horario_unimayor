@@ -10,6 +10,7 @@ export async function createSchedule(formData) {
   await Axios.post('/api/dashboard/schedule', schedule)
 
   revalidatePath('/dashboard/schedule')
+  revalidatePath('/')
 }
 
 export async function updateSchedule(formData) {
@@ -18,6 +19,8 @@ export async function updateSchedule(formData) {
   await Axios.put(`/api/dashboard/schedule/${schedule.id}`, schedule)
 
   revalidatePath('/dashboard/schedule')
+  revalidatePath('/')
+
   redirect('/dashboard/schedule')
 }
 
@@ -27,4 +30,5 @@ export async function deleteSchedule(formData) {
   await Axios.delete(`/api/dashboard/schedule/${id}`)
 
   revalidatePath('/dashboard/schedule')
+  revalidatePath('/')
 }
