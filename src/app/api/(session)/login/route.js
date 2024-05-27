@@ -24,10 +24,14 @@ export async function POST(req) {
     })
 
     if (!foundUser) {
-      return NextResponse.json({ error: 'User not found' })
+      return NextResponse.json({ error: 'Usuario no encontrado' })
     }
 
     const token = await generateJWT({ id: foundUser.id })
+
+    if (!token) {
+      return NextResponse.json({ error: 'Error al generar token' })
+    }
 
     return NextResponse.json(
       { message: 'Inicio de sesión con éxito', token },
