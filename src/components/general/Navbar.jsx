@@ -47,7 +47,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isAuth, dataUser }) => {
+export const Navbar = ({ isAuth }) => {
   const pathname = usePathname()
 
   const [toggle, setToggle] = useState(false)

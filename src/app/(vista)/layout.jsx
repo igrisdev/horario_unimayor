@@ -42,7 +42,7 @@ export default async function RootLayout({ children }) {
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar
           isAuth={dataUser ? true : false}
-          dataUser={dataUser ?? null}
+          // dataUser={dataUser ?? null}
         />
 
         <div className='px-4'>{children}</div>
