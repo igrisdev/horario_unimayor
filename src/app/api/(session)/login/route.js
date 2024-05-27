@@ -1,10 +1,20 @@
+import { NextResponse } from 'next/server'
+
 import prisma from '@/lib/prisma'
 
-import { NextResponse } from 'next/server'
+import { generateJWT } from '@/lib/generateJWT'
 
 export async function POST(req) {
   try {
     const { email, password } = await req.json()
+
+    if (!email) {
+      return NextResponse.json({ error: 'Email es requerido' })
+    }
+
+    if (!password) {
+      return NextResponse.json({ error: 'Contraseña es requerida' })
+    }
 
     const foundUser = await prisma.user.findUnique({
       where: {
@@ -13,8 +23,14 @@ export async function POST(req) {
       },
     })
 
+    if (!foundUser) {
+      return NextResponse.json({ error: 'User not found' })
+    }
+
+    const token = await generateJWT({ id: foundUser.id })
+
     return NextResponse.json(
-      { message: 'Inicio de sesión con éxito' },
+      { message: 'Inicio de sesión con éxito', token },
       { status: 200 }
     )
   } catch (error) {

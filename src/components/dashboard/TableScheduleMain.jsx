@@ -25,7 +25,7 @@ export function TableScheduleMain({ subjects }) {
   return (
     <main className=''>
       <h2>Horario de este semestre</h2>
-      <section>
+      <section className='overflow-x-auto'>
         <table className='w-full border-collapse border'>
           <thead>
             <tr>

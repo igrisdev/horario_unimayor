@@ -1,13 +1,24 @@
+'use client'
+
 import Link from 'next/link'
 
 import { login } from '@/lib/actions/session/actionSession'
 import { ButtonLoading } from '@/components/general/ButtonLoading'
+import { toast } from 'sonner'
 
 export const FormLogin = () => {
+  async function handleSubmit(formData) {
+    const res = await login(formData)
+
+    if (res.error) {
+      return toast.error(res.error)
+    }
+  }
+
   return (
     <>
       <form
-        action={login}
+        action={handleSubmit}
         className='flex flex-col gap-3'
       >
         <div className='block relative'>

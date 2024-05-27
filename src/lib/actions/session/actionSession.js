@@ -1,12 +1,25 @@
 'use server'
 
 import { Axios } from '@/lib/axios'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function login(formData) {
   const user = Object.fromEntries(formData)
 
-  Axios.post('/api/login', user)
+  const { data } = await Axios.post('/api/login', user)
+
+  if (data.error) {
+    return { error: data.error }
+  }
+
+  const token = data.token
+
+  if (!token) {
+    return { error: 'Error al iniciar sesión' }
+  }
+
+  cookies().set('token', token)
 
   redirect('/')
 }

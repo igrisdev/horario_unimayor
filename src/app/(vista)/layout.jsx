@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar />
+
         <div className='px-4'>{children}</div>
+
         <Toaster
           richColors
           position='bottom-center'
