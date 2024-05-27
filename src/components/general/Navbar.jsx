@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -51,6 +51,14 @@ export const Navbar = () => {
   const pathname = usePathname()
 
   const [toggle, setToggle] = useState(false)
+
+  useEffect(() => {
+    isLogin()
+  }, [])
+
+  function isLogin() {
+    console.log('object')
+  }
 
   const isSession = true
 
