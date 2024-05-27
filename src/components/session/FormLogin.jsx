@@ -10,7 +10,7 @@ export const FormLogin = () => {
   async function handleSubmit(formData) {
     const res = await login(formData)
 
-    if (res.error) {
+    if (res?.error) {
       return toast.error(res.error)
     }
   }

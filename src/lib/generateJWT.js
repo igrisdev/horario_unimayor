@@ -4,7 +4,7 @@ export function generateJWT({ id }) {
   return new Promise((resolve, reject) => {
     jwt.sign(
       { id },
-      'secret',
+      process.env.JWT_SECRET,
       { expiresIn: '24h' },
       (err, token) => {
         if (err) reject(err)

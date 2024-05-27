@@ -1,6 +1,7 @@
 'use server'
 
 import { Axios } from '@/lib/axios'
+import { generateJWT } from '@/lib/generateJWT'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -13,7 +14,17 @@ export async function login(formData) {
     return { error: data.error }
   }
 
-  const { token } = data
+  const { id } = data
+
+  if (!id) {
+    return NextResponse.json({ error: 'No hay id en el token' })
+  }
+
+  const token = await generateJWT({ id })
+
+  if (!token) {
+    return NextResponse.json({ error: 'Error al generar token' })
+  }
 
   if (!token) {
     return { error: 'Error al iniciar sesión' }
