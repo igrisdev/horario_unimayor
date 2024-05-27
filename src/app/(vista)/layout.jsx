@@ -30,19 +30,23 @@ export default async function RootLayout({ children }) {
     id = data.id
   }
 
-  let dataUser = {}
-
-  if (id !== null) {
-    const { data } = await Axios.get(`/api/dashboard/user/${id}`)
-    dataUser = data
+  let infoLogin = {
+    id: 123,
+    name: 'juan',
+    email: 'carlos@gmail.com',
   }
+
+  // if (id !== null) {
+  //   const { data } = await Axios.get(`/api/dashboard/user/${id}`)
+  //   infoLogin = data
+  // }
 
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar
-          isAuth={dataUser ? true : false}
-          // dataUser={dataUser ?? null}
+          isAuth={infoLogin ? true : false}
+          // infoLogin={infoLogin ?? null}
         />
 
         <div className='px-4'>{children}</div>
