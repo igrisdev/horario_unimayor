@@ -11,7 +11,7 @@ export const FormLogin = () => {
     const res = await login(formData)
 
     if (res?.error) {
-      return toast.error(res.error)
+      return toast.error(res.message)
     }
   }
 

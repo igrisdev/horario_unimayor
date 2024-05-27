@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 
 import prisma from '@/lib/prisma'
 
+import { generateJWT } from '@/lib/generateJWT'
+
 export async function POST(req) {
   try {
     const { email, password } = await req.json()
@@ -25,7 +27,13 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Usuario no encontrado' })
     }
 
-    return NextResponse.json({ id: foundUser.id }, { status: 200 })
+    const token = await generateJWT({ id: foundUser.id })
+
+    if (!token) {
+      return NextResponse.json({ error: 'Error al generar token' })
+    }
+
+    return NextResponse.json({ message: 'Inicio de sesión exitoso', token })
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },
