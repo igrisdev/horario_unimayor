@@ -16,7 +16,7 @@ export async function login(formData) {
   const token = data.token
 
   if (!token) {
-    return { error: `Error al iniciar sesión ${token} ---` }
+    return { error: `Error al iniciar sesión ${process.env.JWT_SECRET} ---` }
   }
 
   cookies().set('token', token)
