@@ -29,10 +29,11 @@ export async function POST(req) {
 
     const token = await generateJWT({ id: foundUser.id })
 
-    return NextResponse.json(
-      { message: 'Inicio de sesión con éxito', token },
-      { status: 200 }
-    )
+    if (!token) {
+      return NextResponse.json({ error: 'Error al generar token' })
+    }
+
+    return NextResponse.json({ token }, { status: 200 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },

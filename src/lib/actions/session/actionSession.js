@@ -13,10 +13,10 @@ export async function login(formData) {
     return { error: data.error }
   }
 
-  const token = data.token
+  const { token } = data
 
   if (!token) {
-    return { error: `Error al iniciar sesión ${process.env.JWT_SECRET} ---` }
+    return { error: 'Error al iniciar sesión' }
   }
 
   cookies().set('token', token)
