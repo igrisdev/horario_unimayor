@@ -15,9 +15,9 @@ export async function login(formData) {
 
   const token = data.token
 
-  /* if (!token) {
+  if (!token) {
     return { error: 'Error al iniciar sesión' }
-  } */
+  }
 
   cookies().set('token', token)
 
