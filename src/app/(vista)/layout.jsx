@@ -21,7 +21,7 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const token = cookies().get('token')
+  /* const token = cookies().get('token')
 
   let id
   if (token) {
@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
     id: 123,
     name: 'juan',
     email: 'carlos@gmail.com',
-  }
+  } */
 
   // if (id !== null) {
   //   const { data } = await Axios.get(`/api/dashboard/user/${id}`)
@@ -45,7 +45,8 @@ export default async function RootLayout({ children }) {
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar
-          isAuth={infoLogin ? true : false}
+          // isAuth={infoLogin ? true : false}
+          isAuth={true }
           // infoLogin={infoLogin ?? null}
         />
 
