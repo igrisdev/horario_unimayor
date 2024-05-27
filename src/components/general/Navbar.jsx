@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -47,20 +47,12 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = () => {
+export const Navbar = ({ isAuth, dataUser }) => {
   const pathname = usePathname()
 
   const [toggle, setToggle] = useState(false)
 
-  useEffect(() => {
-    isLogin()
-  }, [])
-
-  function isLogin() {
-    console.log('object')
-  }
-
-  const isSession = true
+  const isSession = isAuth
 
   function handleToggle() {
     setToggle(!toggle)
@@ -82,14 +74,16 @@ export const Navbar = () => {
           {isSession === false && (
             <li>
               <picture>
-                <Image
-                  className='rounded-md'
-                  src='/logo.jpeg'
-                  alt='logo'
-                  width={70}
-                  height={70}
-                  objectFit='cover'
-                />
+                <Link href='/'>
+                  <Image
+                    className='rounded-md'
+                    src='/logo.jpeg'
+                    alt='logo'
+                    width={70}
+                    height={70}
+                    objectFit='cover'
+                  />
+                </Link>
               </picture>
             </li>
           )}
@@ -143,21 +137,32 @@ export const Navbar = () => {
         </nav>
       )}
       <div className='flex gap-x-6 items-center'>
-        <div className='hidden sm:block'>
-          <form className='max-w-sm mx-auto'>
-            <select
-              className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
-              defaultValue='default'
-            >
-              <option value='default'>Periodo Académico</option>
-              <option value='1'>2023-1</option>
-              <option value='2'>2023-2</option>
-            </select>
-          </form>
-        </div>
-        <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
-          J
-        </div>
+        {isSession === false ? (
+          <Link
+            href='/login'
+            className='text-amber-500'
+          >
+            Iniciar Sesión
+          </Link>
+        ) : (
+          <>
+            <div className='hidden sm:block'>
+              <form className='max-w-sm mx-auto'>
+                <select
+                  className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+                  defaultValue='default'
+                >
+                  <option value='default'>Periodo Académico</option>
+                  <option value='1'>2023-1</option>
+                  <option value='2'>2023-2</option>
+                </select>
+              </form>
+            </div>
+            <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
+              J
+            </div>
+          </>
+        )}
         <div className='lg:hidden flex items-center bg-slate-200/40  rounded-lg text-black p-1'>
           <button onClick={handleToggle}>
             <svg

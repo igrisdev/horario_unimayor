@@ -21,5 +21,5 @@ export function middleware(req) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/dashboard/:path*'],
+  matcher: ['/dashboard/:path*', '/'],
 }
