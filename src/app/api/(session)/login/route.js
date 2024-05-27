@@ -27,7 +27,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Usuario no encontrado' })
     }
 
-    const token = 122222
+    const token = await generateJWT({ id: foundUser.id })
 
     if (!token) {
       return NextResponse.json({ error: 'Error al generar token' })
