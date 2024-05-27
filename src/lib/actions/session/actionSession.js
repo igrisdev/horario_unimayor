@@ -13,7 +13,7 @@ export async function login(formData) {
     return { error: data.error }
   }
 
-  const { token } = data
+  const token = 12323
 
   if (!token) {
     return { error: 'Error al iniciar sesión' }

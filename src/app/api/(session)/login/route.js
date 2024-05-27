@@ -33,7 +33,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Error al generar token' })
     }
 
-    return NextResponse.json({ message: 'Inicio de sesión exitoso', token })
+    return NextResponse.json({ token }, { status: 200 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },
