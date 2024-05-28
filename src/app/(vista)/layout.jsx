@@ -8,6 +8,7 @@ import { Axios } from '@/lib/axios'
 import { cookies } from 'next/headers'
 
 import { verifyJWT } from '@/lib/verifyJWT'
+
 import jwt from 'jsonwebtoken'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +23,7 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const token = await cookies().get('token')
+  const token = cookies().get('token')
 
   let id
   if (token) {
