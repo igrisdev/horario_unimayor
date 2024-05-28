@@ -1,4 +1,5 @@
 'use client'
+import Cookies from 'js-cookie'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -49,6 +50,10 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
 
 export const Navbar = ({ isAuth }) => {
   const pathname = usePathname()
+
+  const token = Cookies.get('token')
+
+  console.log(token)
 
   const [toggle, setToggle] = useState(false)
 

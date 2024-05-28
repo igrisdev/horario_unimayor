@@ -5,11 +5,10 @@ import { Toaster } from 'sonner'
 import { Navbar } from '@/components/general/Navbar'
 
 import { Axios } from '@/lib/axios'
-import { cookies } from 'next/headers'
 
 import { verifyJWT } from '@/lib/verifyJWT'
 
-import jwt from 'jsonwebtoken'
+import Cookies from 'js-cookie'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,21 +22,13 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const token = cookies().get('token')
+  const token = Cookies.get('token')
 
   let id
-  if (token.value) {
-    try {
-      let data = jwt.verify(token.value, process.env.JWT_SECRET)
-      id = data.id
-    } catch (error) {
-      if (error instanceof JsonWebTokenError) {
-        console.error('Error verificando token:', error)
-        // Maneja el error de verificación del token
-      } else {
-        throw error
-      }
-    }
+  if (token) {
+    let data = await verifyJWT(token)
+
+    id = data.id
   }
 
   let infoLogin = {
