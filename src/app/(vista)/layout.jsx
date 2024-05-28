@@ -22,7 +22,8 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const token = cookies().get('token')
-  
+
+  console.log(token)
   /* 
 
   let id
