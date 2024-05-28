@@ -30,11 +30,11 @@ export default async function RootLayout({ children }) {
     id = data.id
   }
 
-  let infoLogin = {
+  /* let infoLogin = {
     id: 123,
     name: 'juan',
     email: 'carlos@gmail.com',
-  }
+  } */
 
   /* if (id !== null) {
     const { data } = await Axios.get(`/api/dashboard/user/${id}`)
