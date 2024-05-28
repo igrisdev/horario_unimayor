@@ -23,9 +23,6 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const token = cookies().get('token')
 
-  console.log(token)
-  /* 
-
   let id
   if (token) {
     let data = await verifyJWT(token.value)
@@ -37,12 +34,12 @@ export default async function RootLayout({ children }) {
     id: 123,
     name: 'juan',
     email: 'carlos@gmail.com',
-  } */
+  }
 
-  // if (id !== null) {
-  //   const { data } = await Axios.get(`/api/dashboard/user/${id}`)
-  //   infoLogin = data
-  // }
+  if (id !== null) {
+    const { data } = await Axios.get(`/api/dashboard/user/${id}`)
+    infoLogin = data
+  }
 
   return (
     <html lang='en'>
