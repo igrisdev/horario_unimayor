@@ -21,7 +21,7 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const { value } = cookies().get('token')
+  const { value } = await cookies().get('token')
 
   if (value) {
     let { id } = await verifyJWT(value)
