@@ -23,12 +23,12 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const token = cookies().get('token')
 
-  let id
+  /* let id
   if (token) {
     let data = await verifyJWT(token.value)
 
     id = data.id
-  }
+  } */
 
   /* let infoLogin = {
     id: 123,
