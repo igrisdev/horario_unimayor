@@ -26,10 +26,18 @@ export default async function RootLayout({ children }) {
   const token = cookies().get('token')
 
   let id
-  if (token) {
-    let data = jwt.verify(token.value, process.env.JWT_SECRET)
-
-    id = data.id
+  if (token.value) {
+    try {
+      let data = jwt.verify(token.value, process.env.JWT_SECRET)
+      id = data.id
+    } catch (error) {
+      if (error instanceof JsonWebTokenError) {
+        console.error('Error verificando token:', error)
+        // Maneja el error de verificación del token
+      } else {
+        throw error
+      }
+    }
   }
 
   let infoLogin = {
