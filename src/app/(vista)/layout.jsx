@@ -21,7 +21,9 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  /* const token = cookies().get('token')
+  const token = cookies().get('token')
+  
+  /* 
 
   let id
   if (token) {
@@ -46,7 +48,7 @@ export default async function RootLayout({ children }) {
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar
           // isAuth={infoLogin ? true : false}
-          isAuth={true }
+          isAuth={true}
           // infoLogin={infoLogin ?? null}
         />
 
