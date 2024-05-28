@@ -36,10 +36,10 @@ export default async function RootLayout({ children }) {
     email: 'carlos@gmail.com',
   }
 
-  if (id !== null) {
+  /* if (id !== null) {
     const { data } = await Axios.get(`/api/dashboard/user/${id}`)
     infoLogin = data
-  }
+  } */
 
   return (
     <html lang='en'>
