@@ -74,6 +74,10 @@ export const Navbar = () => {
   async function handleIsLogged() {
     const isLogged = await isLoggedIn()
     setIsLogged(isLogged ? true : false)
+
+    if (isLogged === false) {
+      window.location.reload()
+    }
   }
 
   useEffect(() => {
