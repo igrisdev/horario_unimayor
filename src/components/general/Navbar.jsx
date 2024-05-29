@@ -1,15 +1,13 @@
 'use client'
-import Cookies from 'js-cookie'
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+
 import { useState } from 'react'
 
-import jwt from 'jsonwebtoken'
-import { Axios } from '@/lib/axios'
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+
 import { logout } from '@/lib/actions/session/actionSession'
-import { getSchedules } from '@/lib/actions/schedule/actionSchedule'
-import { ButtonLoading } from './ButtonLoading'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -55,7 +53,21 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
 }
 
 export const Navbar = () => {
+  const searchParams = useSearchParams()
   const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const handleSearch = (term) => {
+    const params = new URLSearchParams(searchParams)
+
+    if (term !== '' && term !== 'default') {
+      params.set('schedule', term)
+    } else {
+      params.delete('schedule')
+    }
+
+    replace(`${pathname}?${params.toString()}`)
+  }
 
   const [IsSession] = useState(true)
 
@@ -152,24 +164,17 @@ export const Navbar = () => {
         ) : (
           <>
             <div className='hidden sm:block'>
-              <form
-                action={getSchedules}
-                className='flex flex-row gap-x-2'
-              >
+              <form className='flex flex-row gap-x-2'>
                 <select
-                  className='text-gray-900 text-sm rounded-md block w-[90px] p-2 outline-none'
+                  className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
                   defaultValue='default'
                   name='schedule'
+                  onChange={(e) => handleSearch(e.target.value)}
                 >
                   <option value='default'>Periodo Académico</option>
                   <option value='2023-2'>2023-2</option>
                   <option value='2024-1'>2024-1</option>
                 </select>
-
-                <ButtonLoading
-                  label='Buscar'
-                  className='w-36'
-                />
               </form>
             </div>
             {/* <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>

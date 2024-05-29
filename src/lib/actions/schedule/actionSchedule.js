@@ -4,16 +4,6 @@ import { revalidatePath } from 'next/cache'
 import { Axios } from '@/lib/axios'
 import { redirect } from 'next/navigation'
 
-export async function getSchedules(formData) {
-  const { schedule } = Object.fromEntries(formData)
-
-  if (schedule === 'default') {
-    redirect('/dashboard/schedule')
-  }
-
-  redirect('/dashboard/schedule?schedule=' + schedule)
-}
-
 export async function createSchedule(formData) {
   const schedule = Object.fromEntries(formData)
 
