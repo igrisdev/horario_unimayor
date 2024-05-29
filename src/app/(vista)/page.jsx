@@ -2,8 +2,12 @@ import { TableScheduleMain } from '@/components/dashboard/TableScheduleMain'
 import { Axios } from '@/lib/axios'
 import React from 'react'
 
-export default async function Home() {
-  const { data } = await Axios.get('/api/dashboard/schedule?search=&schedule=')
+export default async function Home({ searchParams }) {
+  const schedule = searchParams?.schedule || ''
+
+  const { data } = await Axios.get(
+    `/api/dashboard/schedule?search=&schedule=${schedule}`
+  )
 
   const subjects = data.map((item) => ({
     id: item.id,
