@@ -84,7 +84,7 @@ export const Navbar = ({ isLogged = false }) => {
     <header className='relative flex justify-between items-center h-20 px-4'>
       <h1 className='text-xl font-semibold'>
         <Link href='/'>
-          Horario <span className='text-amber-500'>UniMayor</span>
+          Horario <span className='text-amber-500'>UniMayor {isLogged}</span>
         </Link>
       </h1>
 

@@ -2,6 +2,7 @@
 
 import { Axios } from '@/lib/axios'
 import { verifyJWT } from '@/lib/verifyJWT'
+import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -14,6 +15,7 @@ export async function isLoggedIn() {
 
   const { id } = await verifyJWT(token.value)
 
+  revalidatePath('/')
   return id
 }
 
