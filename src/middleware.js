@@ -5,9 +5,9 @@ export function middleware(req) {
 
   if (!token) return NextResponse.redirect(new URL('/login', req.url))
 
-  /* if (req.nextUrl.pathname === '/login') {
+  if (req.nextUrl.pathname === '/login') {
     return NextResponse.redirect(new URL('/', req.url))
-  } */
+  }
 
   /* if (token) {
     if (
@@ -21,5 +21,5 @@ export function middleware(req) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/dashboard/:path*', '/'],
+  matcher: ['/dashboard/:path*', '/', '/login', '/register'],
 }

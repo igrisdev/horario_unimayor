@@ -54,17 +54,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
 export const Navbar = () => {
   const pathname = usePathname()
 
-  const [IsSession, setIsSession] = useState(false)
-
-  useEffect(() => {
-    async function getData() {
-      let { data } = await Axios.get(`/api/login/verify`)
-
-      setIsSession(true)
-    }
-
-    getData()
-  }, [])
+  const [IsSession] = useState(true)
 
   const [toggle, setToggle] = useState(false)
 
