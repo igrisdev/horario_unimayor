@@ -4,10 +4,6 @@ import '@/app/style/globals.css'
 import { Toaster } from 'sonner'
 import { Navbar } from '@/components/general/Navbar'
 
-import { Axios } from '@/lib/axios'
-
-import { cookies } from 'next/headers'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -19,21 +15,11 @@ export const metadata = {
   },
 }
 
-export default async function RootLayout({ children }) {
-  const token = cookies().get('token')
-
-  let { data } = await Axios.get(`/api/login/${token.value}`)
-
-  const infoLogin = data
-
+export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
-        <Navbar
-          isAuth={infoLogin ? true : false}
-          // isAuth={true}
-          infoLogin={infoLogin ?? null}
-        />
+        <Navbar />
 
         <div className='px-4'>{children}</div>
 

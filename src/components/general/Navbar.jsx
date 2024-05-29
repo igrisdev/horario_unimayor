@@ -3,9 +3,10 @@ import Cookies from 'js-cookie'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import jwt from 'jsonwebtoken'
+import { Axios } from '@/lib/axios'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -50,14 +51,24 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isAuth }) => {
+export const Navbar = () => {
   const pathname = usePathname()
 
-  const token = Cookies.get('token')
+  const [IsSession, setIsSession] = useState(false)
+
+  useEffect(() => {
+    const token = Cookies.get('token')
+    async function getData() {
+      let { data } = await Axios.get(`/api/login/${token}`)
+      console.log(data)
+
+      setIsSession(true)
+    }
+
+    getData()
+  }, [])
 
   const [toggle, setToggle] = useState(false)
-
-  const isSession = isAuth
 
   function handleToggle() {
     setToggle(!toggle)
@@ -76,7 +87,7 @@ export const Navbar = ({ isAuth }) => {
 
       <nav>
         <ul className='flex gap-x-4'>
-          {isSession === false && (
+          {IsSession === false && (
             <li>
               <picture>
                 <Link href='/'>
@@ -92,7 +103,7 @@ export const Navbar = ({ isAuth }) => {
               </picture>
             </li>
           )}
-          {isSession === true &&
+          {IsSession === true &&
             adminLinks.map((link) => (
               <AdminLink
                 key={link.href + link.label}
@@ -122,7 +133,7 @@ export const Navbar = ({ isAuth }) => {
             </form>
           </div>
           <ul className='py-2 text-sm text-gray-700'>
-            {isSession === true &&
+            {IsSession === true &&
               adminLinks.map((link) => (
                 <AdminLinkPhone
                   key={link.href + link.label}
@@ -142,7 +153,7 @@ export const Navbar = ({ isAuth }) => {
         </nav>
       )}
       <div className='flex gap-x-6 items-center'>
-        {isSession === false ? (
+        {IsSession === false ? (
           <Link
             href='/login'
             className='text-amber-500'
