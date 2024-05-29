@@ -6,9 +6,7 @@ import { Navbar } from '@/components/general/Navbar'
 
 import { Axios } from '@/lib/axios'
 
-import { verifyJWT } from '@/lib/verifyJWT'
-
-import Cookies from 'js-cookie'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,21 +20,11 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const token = Cookies.get('token')
+  const token = cookies().get('token')
 
-  let id
-  if (token) {
-    let data = await verifyJWT(token)
+  let { data } = await Axios.get(`/api/login/${token.value}`)
 
-    id = data.id
-  }
-
-  let infoLogin
-
-  if (id !== null) {
-    const { data } = await Axios.get(`/api/dashboard/user/${id}`)
-    infoLogin = data
-  }
+  const infoLogin = data
 
   return (
     <html lang='en'>

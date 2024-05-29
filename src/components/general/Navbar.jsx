@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
+import jwt from 'jsonwebtoken'
+
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
   { href: '/dashboard/subject', label: 'Materias' },
@@ -52,8 +54,6 @@ export const Navbar = ({ isAuth }) => {
   const pathname = usePathname()
 
   const token = Cookies.get('token')
-
-  console.log(token)
 
   const [toggle, setToggle] = useState(false)
 

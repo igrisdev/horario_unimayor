@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export function generateJWT({ id }) {
+  console.log(process.env.JWT_SECRET)
   return new Promise((resolve, reject) => {
     jwt.sign(
       { id },
