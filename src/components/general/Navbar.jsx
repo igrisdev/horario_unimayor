@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
-import { logout } from '@/lib/actions/session/actionSession'
+import { isLoggedIn, logout } from '@/lib/actions/session/actionSession'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -52,10 +52,12 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isLogged = false }) => {
+export const Navbar = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace } = useRouter()
+  const { replace, refresh } = useRouter()
+
+  const [IsSession, setIsLogged] = useState(false)
 
   const handleSearch = (term) => {
     const params = new URLSearchParams(searchParams)
@@ -69,7 +71,14 @@ export const Navbar = ({ isLogged = false }) => {
     replace(`${pathname}?${params.toString()}`)
   }
 
-  const [IsSession] = useState(isLogged ? true : false)
+  async function handleIsLogged() {
+    const isLogged = await isLoggedIn()
+    setIsLogged(isLogged ? true : false)
+  }
+
+  useEffect(() => {
+    handleIsLogged()
+  }, [])
 
   const [toggle, setToggle] = useState(false)
 
@@ -84,7 +93,7 @@ export const Navbar = ({ isLogged = false }) => {
     <header className='relative flex justify-between items-center h-20 px-4'>
       <h1 className='text-xl font-semibold'>
         <Link href='/'>
-          Horario <span className='text-amber-500'>UniMayor {isLogged}</span>
+          Horario <span className='text-amber-500'>UniMayor</span>
         </Link>
       </h1>
 

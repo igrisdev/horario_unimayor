@@ -41,7 +41,6 @@ export async function login(formData) {
 
   cookies().set('token', token)
 
-  revalidatePath('/')
   redirect('/')
 }
 

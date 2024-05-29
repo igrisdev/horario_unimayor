@@ -18,15 +18,11 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const isLogged = await isLoggedIn()
-
-  console.log(isLogged)
-
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Suspense fallback={<p>Loading...</p>}>
-          <Navbar isLogged={isLogged} />
+          <Navbar />
         </Suspense>
 
         <div className='px-4'>{children}</div>
