@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+/* import jwt from 'jsonwebtoken'
 
 export function verifyJWT(token) {
   return new Promise((resolve, reject) => {
@@ -7,8 +7,7 @@ export function verifyJWT(token) {
       resolve(decoded)
     })
   })
-}
-
+} */
 
 /* import jwt from 'jsonwebtoken'
 

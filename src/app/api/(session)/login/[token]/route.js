@@ -1,10 +1,11 @@
-import { verifyJWT } from '@/lib/verifyJWT'
 import { NextResponse } from 'next/server'
+import { verifyJWT } from '@/lib/verifyJWT'
+import jwt from 'jsonwebtoken'
 
 export async function GET(req, { params }) {
   const { token } = params
 
-  const { id } = await verifyJWT(token)
+  const { id } = jwt.verify(token, process.env.JWT_SECRET)
 
   console.log(id)
 
