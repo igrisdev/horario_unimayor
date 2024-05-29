@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server'
 
 import prisma from '@/lib/prisma'
 
-// import { generateJWT } from '@/lib/generateJWT'
-// import crypto from 'crypto'
+import { generateJWT } from '@/lib/generateJWT'
 
 export async function POST(req) {
   try {
@@ -28,7 +27,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Usuario no encontrado' })
     }
 
-    const token = foundUser.id
+    const token = await generateJWT({ id: foundUser.id })
 
     if (!token) {
       return NextResponse.json({ error: 'Error al generar token' })
