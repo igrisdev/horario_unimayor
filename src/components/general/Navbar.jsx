@@ -3,10 +3,13 @@ import Cookies from 'js-cookie'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import jwt from 'jsonwebtoken'
 import { Axios } from '@/lib/axios'
+import { logout } from '@/lib/actions/session/actionSession'
+import { getSchedules } from '@/lib/actions/schedule/actionSchedule'
+import { ButtonLoading } from './ButtonLoading'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -130,14 +133,12 @@ export const Navbar = () => {
                 />
               ))}
           </ul>
-          <div className='py-2'>
-            <a
-              href='#'
-              className='block px-4 py-2 text-sm text-gray-700'
-            >
-              Sign out
-            </a>
-          </div>
+          <form
+            action={logout}
+            className='block px-4 py-2 text-sm text-gray-700'
+          >
+            <button>Cerrar Sesión</button>
+          </form>
         </nav>
       )}
       <div className='flex gap-x-6 items-center'>
@@ -151,20 +152,35 @@ export const Navbar = () => {
         ) : (
           <>
             <div className='hidden sm:block'>
-              <form className='max-w-sm mx-auto'>
+              <form
+                action={getSchedules}
+                className='flex flex-row gap-x-2'
+              >
                 <select
-                  className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+                  className='text-gray-900 text-sm rounded-md block w-[90px] p-2 outline-none'
                   defaultValue='default'
+                  name='schedule'
                 >
                   <option value='default'>Periodo Académico</option>
-                  <option value='1'>2023-1</option>
-                  <option value='2'>2023-2</option>
+                  <option value='2023-2'>2023-2</option>
+                  <option value='2024-1'>2024-1</option>
                 </select>
+
+                <ButtonLoading
+                  label='Buscar'
+                  className='w-36'
+                />
               </form>
             </div>
-            <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
+            {/* <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
               J
-            </div>
+            </div> */}
+            <form
+              action={logout}
+              className='hidden lg:block p-2 text-sm hover:bg-amber-400 rounded-lg hover:text-black font-medium'
+            >
+              <button>Cerrar Sesión</button>
+            </form>
           </>
         )}
         <div className='lg:hidden flex items-center bg-slate-200/40  rounded-lg text-black p-1'>

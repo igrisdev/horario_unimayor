@@ -3,7 +3,7 @@ import { Axios } from '@/lib/axios'
 import { THead } from '@/components/general/table/THead'
 import { TBody } from '@/components/general/table/TBody'
 
-export const TableSchedule = async ({ search, type }) => {
+export const TableSchedule = async ({ search, schedule, type }) => {
   const columns = [
     {
       label: 'Dia de la semana',
@@ -40,9 +40,8 @@ export const TableSchedule = async ({ search, type }) => {
   async function filterSearch(search) {
     try {
       const { data } = await Axios.get(
-        `/api/dashboard/schedule?search=${search}`
+        `/api/dashboard/schedule?search=${search}&schedule=${schedule}`
       )
-      console.log(data)
       return data
     } catch (error) {
       console.log(error)

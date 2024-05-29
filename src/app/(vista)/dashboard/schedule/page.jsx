@@ -5,6 +5,7 @@ import { TableSchedule } from '@/components/dashboard/schedule/TableSchedule'
 
 export default async function SchoolTerm({ searchParams }) {
   const search = searchParams?.search || ''
+  const schedule = searchParams?.schedule || ''
 
   const urlCreate = '/dashboard/schedule/create'
   const labelCreate = 'Crear Horario'
@@ -21,6 +22,7 @@ export default async function SchoolTerm({ searchParams }) {
       >
         <TableSchedule
           search={search}
+          schedule={schedule}
           type={'schedule'}
         />
       </Suspense>

@@ -3,7 +3,7 @@ import { Axios } from '@/lib/axios'
 import React from 'react'
 
 export default async function Home() {
-  const { data } = await Axios.get('/api/dashboard/schedule?search=')
+  const { data } = await Axios.get('/api/dashboard/schedule?search=&schedule=')
 
   const subjects = data.map((item) => ({
     id: item.id,

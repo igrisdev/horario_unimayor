@@ -2,7 +2,7 @@
 
 import { useFormStatus } from 'react-dom'
 
-export function ButtonLoading({ label, isDelete = false }) {
+export function ButtonLoading({ label, isDelete = false, className = '' }) {
   const { pending } = useFormStatus()
 
   if (isDelete) {
@@ -19,7 +19,7 @@ export function ButtonLoading({ label, isDelete = false }) {
   return (
     <button
       disabled={pending}
-      className='bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal'
+      className={`bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal ${className}`}
     >
       {pending ? (
         <>
@@ -40,7 +40,7 @@ export function ButtonLoading({ label, isDelete = false }) {
               fill='#1C64F2'
             />
           </svg>
-          Cargando ...
+          Cargando
         </>
       ) : (
         label

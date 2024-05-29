@@ -25,9 +25,8 @@ export async function login(formData) {
 }
 
 export async function logout() {
-  Axios.post('/api/logout')
-
-  redirect('/')
+  cookies().delete('token')
+  redirect('/login')
 }
 
 export async function register(formData) {

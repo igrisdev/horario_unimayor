@@ -6,6 +6,25 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url)
     const search = searchParams.get('search')
+    const searchSchedule = searchParams.get('schedule')
+
+    if (searchSchedule !== '') {
+      const schedules = await prisma.schedule.findMany({
+        where: {
+          schoolTerm: {
+            name: { contains: searchSchedule, mode: 'insensitive' },
+          },
+        },
+        include: {
+          schoolTerm: true,
+          user: true,
+          environment: true,
+          subject: true,
+        },
+      })
+
+      return NextResponse.json(schedules, { status: 200 })
+    }
 
     if (search !== '') {
       const schedules = await prisma.schedule.findMany({
