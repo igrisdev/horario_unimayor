@@ -57,10 +57,8 @@ export const Navbar = () => {
   const [IsSession, setIsSession] = useState(false)
 
   useEffect(() => {
-    const token = Cookies.get('token')
-
     async function getData() {
-      let { data } = await Axios.get(`/api/login/${token.toString()}`)
+      let { data } = await Axios.get(`/api/login/verify`)
       console.log(data)
 
       setIsSession(true)
