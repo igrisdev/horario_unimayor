@@ -59,7 +59,6 @@ export const Navbar = () => {
   useEffect(() => {
     async function getData() {
       let { data } = await Axios.get(`/api/login/verify`)
-      console.log(data)
 
       setIsSession(true)
     }
