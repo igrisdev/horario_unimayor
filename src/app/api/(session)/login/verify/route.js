@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 export async function GET(req) {
   const token = await req.cookies.get('token')
 
-  const id = await jwt.verify(token.value.toString(), process.env.JWT_SECRET)
+  const id = await jwt.verify(token.value, process.env.JWT_SECRET)
 
   console.log(id)
   return NextResponse.json({ id })
