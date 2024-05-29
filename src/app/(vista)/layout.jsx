@@ -20,11 +20,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
-        <Navbar />
-
-        <Suspense fallback={<div>Cargando...</div>}>
-          <div className='px-4'>{children}</div>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Navbar />
         </Suspense>
+
+        <div className='px-4'>{children}</div>
 
         <Toaster
           richColors
