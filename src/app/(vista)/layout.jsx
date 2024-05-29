@@ -3,6 +3,7 @@ import '@/app/style/globals.css'
 
 import { Toaster } from 'sonner'
 import { Navbar } from '@/components/general/Navbar'
+import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Navbar />
 
-        <div className='px-4'>{children}</div>
+        <Suspense fallback={<div>Cargando...</div>}>
+          <div className='px-4'>{children}</div>
+        </Suspense>
 
         <Toaster
           richColors
