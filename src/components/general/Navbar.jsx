@@ -52,7 +52,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = () => {
+export const Navbar = ({ isLogged = false }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -69,7 +69,7 @@ export const Navbar = () => {
     replace(`${pathname}?${params.toString()}`)
   }
 
-  const [IsSession] = useState(true)
+  const [IsSession] = useState(isLogged ? true : false)
 
   const [toggle, setToggle] = useState(false)
 
