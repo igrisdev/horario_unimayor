@@ -52,7 +52,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
+export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -71,16 +71,6 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
 
     replace(`${pathname}?${params.toString()}`)
   }
-
-  /* useEffect(() => {
-    function handleSearchStart() {
-      const params = new URLSearchParams(searchParams)
-      params.set('schedule', schoolterms.filter((item) => item.state)[0]?.name)
-      replace(`${pathname}?${params.toString()}`)
-    }
-
-    handleSearchStart()
-  }, [searchParams, replace, pathname, schoolterms]) */
 
   useEffect(() => {
     function handleSearchStart() {
@@ -116,6 +106,8 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
 
   if (pathname === '/register') return null
   if (pathname === '/login') return null
+
+  console.log(teachers)
 
   return (
     <header className='relative flex justify-between items-center h-20 px-4'>
@@ -212,7 +204,26 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
           </Link>
         ) : (
           <>
-            <div className='hidden sm:block'>
+            <div className='hidden sm:flex gap-x-2'>
+              <form className='flex flex-row gap-x-2'>
+                <select
+                  className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
+                  defaultValue={teachers[0]?.id || 'default'}
+                  name='schedule'
+                  onChange={(e) => handleSearch(e.target.value)}
+                >
+                  <option value='default'>Docente</option>
+                  {teachers.map((item) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                    >
+                      {item.firstName} {item.lastName}
+                    </option>
+                  ))}
+                </select>
+              </form>
+
               <form className='flex flex-row gap-x-2'>
                 <select
                   className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
@@ -235,9 +246,6 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
                 </select>
               </form>
             </div>
-            {/* <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
-              J
-            </div> */}
             <form
               action={logout}
               className='hidden lg:block p-2 text-sm hover:bg-amber-400 rounded-lg hover:text-black font-medium'

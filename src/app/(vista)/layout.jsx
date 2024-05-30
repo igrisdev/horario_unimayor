@@ -33,6 +33,15 @@ export default async function RootLayout({ children }) {
 
   const { data } = await Axios.get('/api/dashboard/schoolterm?search=')
 
+  const teachers = await prisma.user.findMany({
+    where: {
+      role: 'docente',
+    },
+    orderBy: {
+      firstName: 'asc',
+    },
+  })
+
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
@@ -42,6 +51,7 @@ export default async function RootLayout({ children }) {
             user={user?.role}
             userInfo={user}
             schoolterms={data}
+            teachers={teachers}
           />
         </Suspense>
 
