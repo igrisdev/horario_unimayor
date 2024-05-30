@@ -19,7 +19,8 @@ export async function isLoggedIn() {
 }
 
 export async function getUser(id) {
-  const { data } = await Axios.get(`/api/user/${id}`)
+  const { data } = await Axios.get(`/api/dashboard/user/${id}`)
+  console.log(data)
   return data
 }
 

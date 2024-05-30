@@ -52,12 +52,12 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isLogged }) => {
+export const Navbar = ({ isLogged, user }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace, refresh } = useRouter()
+  const { replace } = useRouter()
 
-  const [IsSession, setIsLogged] = useState(isLogged ? true : false)
+  const [IsSession] = useState(isLogged)
   const [toggle, setToggle] = useState(false)
 
   const handleSearch = (term) => {
@@ -84,7 +84,7 @@ export const Navbar = ({ isLogged }) => {
     }
 
     handleIsLogged()
-  }, [IsSession, pathname])
+  }, [IsSession, pathname, user])
 
   function handleToggle() {
     setToggle(!toggle)
@@ -119,7 +119,7 @@ export const Navbar = ({ isLogged }) => {
               </picture>
             </li>
           )}
-          {IsSession === true &&
+          {user === 'admin' &&
             adminLinks.map((link) => (
               <AdminLink
                 key={link.href + link.label}
@@ -167,7 +167,7 @@ export const Navbar = ({ isLogged }) => {
         </nav>
       )}
       <div className='flex gap-x-6 items-center'>
-        {IsSession === false ? (
+        {IsSession === false && user !== 'docente' ? (
           <Link
             href='/login'
             className='text-amber-500'

@@ -4,7 +4,7 @@ import '@/app/style/globals.css'
 import { Toaster } from 'sonner'
 import { Navbar } from '@/components/general/Navbar'
 import { Suspense } from 'react'
-import { isLoggedIn } from '@/lib/actions/session/actionSession'
+import { getUser, isLoggedIn } from '@/lib/actions/session/actionSession'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,13 +18,26 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  const isLogged = await isLoggedIn()
+  const id = await isLoggedIn()
+
+  const user = await getUser(id)
+
+  let isLogged
+
+  if (user?.role) {
+    isLogged = true
+  } else {
+    isLogged = false
+  }
 
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
         <Suspense fallback={<p>Loading...</p>}>
-          <Navbar isLogged={isLogged} />
+          <Navbar
+            isLogged={isLogged}
+            user={user?.role}
+          />
         </Suspense>
 
         <div className='px-4'>{children}</div>
