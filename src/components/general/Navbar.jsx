@@ -52,7 +52,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isLogged, user }) => {
+export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -71,6 +71,29 @@ export const Navbar = ({ isLogged, user }) => {
 
     replace(`${pathname}?${params.toString()}`)
   }
+
+  /* useEffect(() => {
+    function handleSearchStart() {
+      const params = new URLSearchParams(searchParams)
+      params.set('schedule', schoolterms.filter((item) => item.state)[0]?.name)
+      replace(`${pathname}?${params.toString()}`)
+    }
+
+    handleSearchStart()
+  }, [searchParams, replace, pathname, schoolterms]) */
+
+  useEffect(() => {
+    function handleSearchStart() {
+      const params = new URLSearchParams(searchParams)
+      const activeSchoolterm = schoolterms.filter((item) => item.state)[0]?.name
+      if (activeSchoolterm) {
+        params.set('schedule', activeSchoolterm)
+        replace(`${pathname}?${params.toString()}`)
+      }
+    }
+
+    handleSearchStart()
+  }, [])
 
   useEffect(() => {
     const handleIsLogged = () => {
@@ -134,18 +157,30 @@ export const Navbar = ({ isLogged, user }) => {
       {toggle && (
         <nav className='absolute right-4 top-20 z-10 bg-slate-200 divide-y divide-gray-100 rounded-lg shadow w-44 block lg:hidden'>
           <div className='px-4 py-3 text-sm text-gray-900'>
-            <div>Bonnie Green</div>
-            <div className='font-medium truncate'>name@flowbite.com</div>
+            <div>
+              {userInfo.firstName} {userInfo.lastName}
+            </div>
+            <div className='font-medium truncate'>{userInfo.email}</div>
           </div>
           <div className='block sm:hidden'>
             <form className='max-w-sm mx-auto'>
               <select
                 className='text-gray-900 text-sm rounded-lg block w-full p-3 outline-none'
-                defaultValue='default'
+                defaultValue={
+                  schoolterms.filter((item) => item.state)[0]?.name || 'default'
+                }
+                name='schedule'
+                onChange={(e) => handleSearch(e.target.value)}
               >
                 <option value='default'>Periodo Académico</option>
-                <option value='1'>2023-1</option>
-                <option value='2'>2023-2</option>
+                {schoolterms.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.name}
+                  >
+                    {item.name}
+                  </option>
+                ))}
               </select>
             </form>
           </div>
@@ -181,13 +216,22 @@ export const Navbar = ({ isLogged, user }) => {
               <form className='flex flex-row gap-x-2'>
                 <select
                   className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
-                  defaultValue='default'
+                  defaultValue={
+                    schoolterms.filter((item) => item.state)[0]?.name ||
+                    'default'
+                  }
                   name='schedule'
                   onChange={(e) => handleSearch(e.target.value)}
                 >
                   <option value='default'>Periodo Académico</option>
-                  <option value='2023-2'>2023-2</option>
-                  <option value='2024-1'>2024-1</option>
+                  {schoolterms.map((item) => (
+                    <option
+                      key={item.id}
+                      value={item.name}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </form>
             </div>

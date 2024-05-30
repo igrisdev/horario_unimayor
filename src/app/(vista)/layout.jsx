@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import { Navbar } from '@/components/general/Navbar'
 import { Suspense } from 'react'
 import { getUser, isLoggedIn } from '@/lib/actions/session/actionSession'
+import { Axios } from '@/lib/axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,6 +31,8 @@ export default async function RootLayout({ children }) {
     isLogged = false
   }
 
+  const { data } = await Axios.get('/api/dashboard/schoolterm?search=')
+
   return (
     <html lang='en'>
       <body className={inter.className + ' bg-[#16161d] text-gray-400'}>
@@ -37,6 +40,8 @@ export default async function RootLayout({ children }) {
           <Navbar
             isLogged={isLogged}
             user={user?.role}
+            userInfo={user}
+            schoolterms={data}
           />
         </Suspense>
 
