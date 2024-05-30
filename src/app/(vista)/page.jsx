@@ -1,15 +1,35 @@
 import { TableScheduleMain } from '@/components/dashboard/TableScheduleMain'
+import { getUser, isLoggedIn } from '@/lib/actions/session/actionSession'
 import { Axios } from '@/lib/axios'
+import prisma from '@/lib/prisma'
 import React from 'react'
 
 export default async function Home({ searchParams }) {
   const schedule = searchParams?.schedule || ''
 
-  const { data } = await Axios.get(
-    `/api/dashboard/schedule?search=&schedule=${schedule}`
-  )
+  const id = await isLoggedIn()
 
-  const subjects = data.map((item) => ({
+  const user = await getUser(id)
+
+  const schedules = await prisma.schedule.findMany({
+    where: {
+      ...(user.role === 'admin'
+        ? {}
+        : {
+            user: {
+              id: user.id,
+            },
+          }),
+    },
+    include: {
+      schoolTerm: true,
+      user: true,
+      environment: true,
+      subject: true,
+    },
+  })
+
+  const subjects = schedules.map((item) => ({
     id: item.id,
     day: parseIntDay(item.day),
     subject: item.subject.name,

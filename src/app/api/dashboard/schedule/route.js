@@ -8,6 +8,8 @@ export async function GET(req) {
     const search = searchParams.get('search')
     const searchSchedule = searchParams.get('schedule')
 
+    // console.log(req.headers)
+
     if (searchSchedule !== '') {
       const schedules = await prisma.schedule.findMany({
         where: {
