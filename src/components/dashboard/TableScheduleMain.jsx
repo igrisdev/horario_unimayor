@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-export function TableScheduleMain({ subjects }) {
+export function TableScheduleMain({ subjects, user }) {
   const [schedule] = useState([
     ['horas', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
     ['07:00', '', '', '', '', '', ''],
@@ -24,10 +24,13 @@ export function TableScheduleMain({ subjects }) {
 
   return (
     <main className=''>
-      <h2>Horario de este semestre</h2>
+      <h2 className='text-2xl font-bold mb-6'>
+        {user.role == 'admin' ? 'Admin' : 'Tu horario de este semestre'} -{' '}
+        {user.firstName} {user.lastName}
+      </h2>
       <section className='overflow-x-auto'>
-        <table className='w-full border-collapse border'>
-          <thead>
+        <table className='w-full border-collapse border bg-slate-950 rounded-lg overflow-hidden'>
+          <thead className='bg-amber-300 text-black'>
             <tr>
               {schedule[0].map((subject) => (
                 <th
@@ -42,7 +45,9 @@ export function TableScheduleMain({ subjects }) {
           <tbody>
             {schedule.slice(1).map((row, index) => (
               <tr key={index}>
-                <td className='border border-slate-600'>{row[0]}</td>
+                <td className='border border-slate-600 text-white text-center'>
+                  {row[0]}
+                </td>
                 {row.slice(1).map((_, colIndex) => {
                   const matchingSubject = subjects.find((materia) => {
                     return (
@@ -63,7 +68,7 @@ export function TableScheduleMain({ subjects }) {
                       <td
                         key={`${index}-${colIndex}`}
                         rowSpan={endHour}
-                        className='bg-green-500/10 text-center'
+                        className='bg-[#7747ff] text-white text-center'
                       >
                         <div className='font-bold'>
                           {matchingSubject.subject}
@@ -82,6 +87,7 @@ export function TableScheduleMain({ subjects }) {
                   return (
                     <td
                       key={`${index}-${colIndex}`}
+                      rowSpan={1}
                       className='border border-slate-600'
                     ></td>
                   )

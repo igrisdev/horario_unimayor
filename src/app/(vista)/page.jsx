@@ -51,7 +51,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <div>
-      <TableScheduleMain subjects={subjects} />
+      <TableScheduleMain subjects={subjects} user={user} />
     </div>
   )
 }

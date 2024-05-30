@@ -74,6 +74,7 @@ export const Navbar = ({ isLogged, user }) => {
 
   useEffect(() => {
     const handleIsLogged = () => {
+      setToggle(false)
       if (
         IsSession === false &&
         pathname !== '/login' &&
