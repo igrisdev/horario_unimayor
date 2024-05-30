@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
-import { isLoggedIn, logout } from '@/lib/actions/session/actionSession'
+import { logout } from '@/lib/actions/session/actionSession'
 
 const adminLinks = [
   { href: '/dashboard/user', label: 'Usuario' },
@@ -52,12 +52,13 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = () => {
+export const Navbar = ({ isLogged }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace, refresh } = useRouter()
 
-  const [IsSession, setIsLogged] = useState(false)
+  const [IsSession, setIsLogged] = useState(isLogged ? true : false)
+  const [toggle, setToggle] = useState(false)
 
   const handleSearch = (term) => {
     const params = new URLSearchParams(searchParams)
@@ -71,20 +72,19 @@ export const Navbar = () => {
     replace(`${pathname}?${params.toString()}`)
   }
 
-  async function handleIsLogged() {
-    const isLogged = await isLoggedIn()
-    setIsLogged(isLogged ? true : false)
-
-    if (isLogged === false) {
-      window.location.reload()
-    }
-  }
-
   useEffect(() => {
-    handleIsLogged()
-  }, [])
+    const handleIsLogged = () => {
+      if (
+        IsSession === false &&
+        pathname !== '/login' &&
+        pathname !== '/register'
+      ) {
+        window.location.reload()
+      }
+    }
 
-  const [toggle, setToggle] = useState(false)
+    handleIsLogged()
+  }, [IsSession, pathname])
 
   function handleToggle() {
     setToggle(!toggle)

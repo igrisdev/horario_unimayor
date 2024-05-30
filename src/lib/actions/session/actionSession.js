@@ -15,7 +15,6 @@ export async function isLoggedIn() {
 
   const { id } = await verifyJWT(token.value)
 
-  revalidatePath('/')
   return id
 }
 
@@ -41,6 +40,7 @@ export async function login(formData) {
 
   cookies().set('token', token)
 
+  revalidatePath('/')
   redirect('/')
 }
 
