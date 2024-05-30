@@ -104,29 +104,15 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
         />
       </div>
 
-      <div className='flex flex-col max-w-96'>
-        <label htmlFor='schoolTermId'>Periodo académico</label>
-        <select
-          id='schoolTermId'
+      <div className=''>
+        <label htmlFor='schoolTermId'>
+          Periodo académico {data[0]?.schoolTerm[0]?.name}
+        </label>
+        <input
+          type='hidden'
           name='schoolTermId'
-          defaultValue={isEdit ? data[0].schoolTermId : 'default'}
-          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
-        >
-          <option value='default'>Seleccionar</option>
-
-          {data.map((item) => {
-            return item.allSchoolTerm?.map((schoolTerm) => {
-              return (
-                <option
-                  key={schoolTerm.id}
-                  value={schoolTerm.id}
-                >
-                  {schoolTerm.name}
-                </option>
-              )
-            })
-          })}
-        </select>
+          value={data[0]?.schoolTerm[0]?.id}
+        />
       </div>
 
       <div className='flex flex-col max-w-96'>

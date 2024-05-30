@@ -20,8 +20,8 @@ export default async function SubjectCreate() {
   const { data: subject } = await Axios.get(`/api/dashboard/subject?search`)
 
   rows.push({
-    allSchoolTerm: schoolterm,
-    allUser: user,
+    schoolTerm: schoolterm.filter((item) => item.state),
+    allUser: user.filter((item) => item.role === 'docente'),
     allEnvironment: environment,
     allSubject: subject,
   })
