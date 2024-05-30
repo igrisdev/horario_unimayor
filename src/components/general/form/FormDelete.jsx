@@ -8,6 +8,7 @@ import { deleteEnvironment } from '@/lib/actions/environment/actionEnvironment'
 import { deleteUser } from '@/lib/actions/user/actionUser'
 import { deleteSchoolTerm } from '@/lib/actions/schoolterm/actionSchoolTerm'
 import { deleteSchedule } from '@/lib/actions/schedule/actionSchedule'
+import { deleteWork } from '@/lib/actions/work/actionSchoolTerm'
 
 export function FormDelete({ id, label, type }) {
   const handleDeleteSubject = async (formData) => {
@@ -30,6 +31,10 @@ export function FormDelete({ id, label, type }) {
 
     if (type === 'schedule') {
       promise = deleteSchedule(formData)
+    }
+
+    if (type === 'work') {
+      promise = deleteWork(formData)
     }
 
     toast.promise(promise, {

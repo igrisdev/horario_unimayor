@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { logout } from '@/lib/actions/session/actionSession'
 
 const adminLinks = [
+  { href: '/dashboard/work', label: 'Labor' },
   { href: '/dashboard/user', label: 'Usuario' },
   { href: '/dashboard/subject', label: 'Materias' },
   { href: '/dashboard/environment', label: 'Ambiente' },
