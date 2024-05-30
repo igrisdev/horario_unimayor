@@ -19,6 +19,13 @@ export default async function Home({ searchParams }) {
               id: user.id,
             },
           }),
+      schoolTerm: {
+        ...(schedule === ''
+          ? {}
+          : {
+              name: schedule,
+            }),
+      },
     },
     include: {
       schoolTerm: true,
@@ -51,7 +58,10 @@ export default async function Home({ searchParams }) {
 
   return (
     <div>
-      <TableScheduleMain subjects={subjects} user={user} />
+      <TableScheduleMain
+        subjects={subjects}
+        user={user}
+      />
     </div>
   )
 }
