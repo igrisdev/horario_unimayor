@@ -1,6 +1,5 @@
 import { TableScheduleMain } from '@/components/dashboard/TableScheduleMain'
 import { getUser, isLoggedIn } from '@/lib/actions/session/actionSession'
-import { Axios } from '@/lib/axios'
 import prisma from '@/lib/prisma'
 import React from 'react'
 

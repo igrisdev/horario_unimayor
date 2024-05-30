@@ -103,7 +103,7 @@ export const Navbar = ({ isLogged, user }) => {
 
       <nav>
         <ul className='flex gap-x-4'>
-          {IsSession === false && (
+          {user === 'docente' && (
             <li>
               <picture>
                 <Link href='/'>
@@ -149,7 +149,7 @@ export const Navbar = ({ isLogged, user }) => {
             </form>
           </div>
           <ul className='py-2 text-sm text-gray-700'>
-            {IsSession === true &&
+            {user === 'admin' &&
               adminLinks.map((link) => (
                 <AdminLinkPhone
                   key={link.href + link.label}
