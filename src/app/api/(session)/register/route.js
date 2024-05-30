@@ -18,7 +18,34 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { firstName, lastName, email, password } = await req.json()
+    const { firstName, lastName, email, password, revalidatePassword } =
+      await req.json()
+
+    console.log(firstName, lastName, email, password, revalidatePassword)
+
+    if (!firstName) {
+      return NextResponse.json({ error: 'Nombre es requerido' })
+    }
+
+    if (!lastName) {
+      return NextResponse.json({ error: 'Apellido es requerido' })
+    }
+
+    if (!email) {
+      return NextResponse.json({ error: 'Email es requerido' })
+    }
+
+    if (!password) {
+      return NextResponse.json({ error: 'Contraseña es requerida' })
+    }
+
+    if (!revalidatePassword) {
+      return NextResponse.json({ error: 'Misma contraseña es requerida' })
+    }
+
+    if (password !== revalidatePassword) {
+      return NextResponse.json({ error: 'Las contraseñas no coinciden' })
+    }
 
     await prisma.user.create({
       data: {

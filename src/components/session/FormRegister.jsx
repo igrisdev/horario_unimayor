@@ -1,13 +1,24 @@
+'use client'
+
 import Link from 'next/link'
 
 import { ButtonLoading } from '../general/ButtonLoading'
 import { register } from '@/lib/actions/session/actionSession'
+import { toast } from 'sonner'
 
 export const FormRegister = () => {
+  async function handleSubmit(formData) {
+    const res = await register(formData)
+
+    if (res?.error) {
+      return toast.error(res.error)
+    }
+  }
+
   return (
     <>
       <form
-        action={register}
+        action={handleSubmit}
         className='flex flex-col gap-3'
       >
         <div className='flex items-center mt-2 gap-4'>
@@ -48,7 +59,7 @@ export const FormRegister = () => {
             Email
           </label>
           <input
-            type='text'
+            type='email'
             id='email'
             name='email'
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0'
@@ -62,7 +73,7 @@ export const FormRegister = () => {
             Contraseña
           </label>
           <input
-            type='text'
+            type='password'
             id='password'
             name='password'
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
@@ -77,8 +88,9 @@ export const FormRegister = () => {
             Misma contraseña
           </label>
           <input
-            type='text'
+            type='password'
             id='revalidatePassword'
+            name='revalidatePassword'
             className='rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0'
           />
         </div>

@@ -52,7 +52,11 @@ export async function logout() {
 export async function register(formData) {
   const user = Object.fromEntries(formData)
 
-  Axios.post('/api/register', user)
+  const { data } = await Axios.post('/api/register', user)
+
+  if (data.error) {
+    return { error: data.error }
+  }
 
   redirect('/login')
 }
