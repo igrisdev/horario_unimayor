@@ -106,12 +106,12 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
 
       <div className=''>
         <label htmlFor='schoolTermId'>
-          Periodo académico {data[0]?.schoolTerm}
+          Periodo académico {data[0].schoolTerm[0].name}
         </label>
         <input
           type='hidden'
           name='schoolTermId'
-          value={data[0]?.schoolTermId}
+          value={data[0].schoolTerm[0].id}
         />
       </div>
 

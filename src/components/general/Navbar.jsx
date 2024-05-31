@@ -76,7 +76,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
   }
 
   const handleSearchTeacher = (term) => {
-    /* if (user === 'docente' || pathname.includes('/dashboard')) return
+    if (user === 'docente' || pathname.includes('/dashboard')) return
 
     const params = new URLSearchParams(searchParams)
 
@@ -85,7 +85,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
       searchTeacher = term
     }
 
-    replace(`${pathname}?${params.toString()}`) */
+    replace(`${pathname}?${params.toString()}`)
   }
 
   useEffect(() => {
@@ -186,7 +186,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
                 ))}
               </select>
             </form>
-            {/* {user === 'admin' && !pathname.includes('/dashboard') && (
+            {user === 'admin' && !pathname.includes('/dashboard') && (
               <form className='max-w-sm mx-auto'>
                 <select
                   className='text-gray-900 text-sm rounded-lg block w-full p-3 outline-none'
@@ -204,7 +204,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
                   ))}
                 </select>
               </form>
-            )} */}
+            )}
           </div>
           <ul className='py-2 text-sm text-gray-700'>
             {user === 'admin' &&
@@ -235,7 +235,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
         ) : (
           <>
             <div className='hidden sm:block'>
-              {/* {user === 'admin' && !pathname.includes('/dashboard') && (
+              {user === 'admin' && !pathname.includes('/dashboard') && (
                 <form className='max-w-sm mx-auto'>
                   <select
                     className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
@@ -253,7 +253,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
                     ))}
                   </select>
                 </form>
-              )} */}
+              )}
             </div>
             <div className='hidden sm:block'>
               <form className='flex flex-row gap-x-2'>

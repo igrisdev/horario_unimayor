@@ -15,9 +15,9 @@ export default async function Home({ searchParams }) {
     where: {
       ...(user.role === 'admin'
         ? {
-            /* user: {
+            user: {
               id: teacher,
-            }, */
+            },
           }
         : {
             user: {
