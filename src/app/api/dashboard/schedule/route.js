@@ -20,6 +20,7 @@ export async function GET(req) {
           user: true,
           environment: true,
           subject: true,
+          work: true,
         },
       })
 
@@ -67,6 +68,7 @@ export async function GET(req) {
           user: true,
           environment: true,
           subject: true,
+          work: true,
         },
       })
 
@@ -80,6 +82,7 @@ export async function GET(req) {
         user: true,
         environment: true,
         subject: true,
+        work: true,
       },
     })
 
@@ -97,13 +100,13 @@ export async function POST(req) {
   try {
     const {
       day,
-      hours,
       hourStart,
       hourEnd,
       schoolTermId,
       userId,
       environmentId,
       subjectId,
+      workId,
     } = await req.json()
 
     await prisma.schedule.create({
@@ -115,6 +118,7 @@ export async function POST(req) {
         userId,
         environmentId,
         subjectId,
+        workId,
       },
     })
 

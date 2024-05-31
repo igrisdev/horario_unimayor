@@ -19,14 +19,19 @@ export default async function SubjectCreate() {
 
   const { data: subject } = await Axios.get(`/api/dashboard/subject?search`)
 
+  const { data: work } = await Axios.get(`/api/dashboard/work?search`)
+
   rows.push({
     schoolTerm: schoolterm.filter((item) => item.state),
     allUser: user.filter((item) => item.role === 'docente'),
     allEnvironment: environment,
     allSubject: subject,
+    allWork: work,
   })
 
   dataSubject = rows
+
+  console.log(dataSubject)
 
   return (
     <main className='grid place-content-center h-[calc(100vh-100px)]'>

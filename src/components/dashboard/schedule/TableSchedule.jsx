@@ -30,6 +30,9 @@ export const TableSchedule = async ({ search, schedule, type }) => {
       label: 'Materia',
     },
     {
+      label: 'Labor',
+    },
+    {
       label: '',
     },
   ]
@@ -60,6 +63,7 @@ export const TableSchedule = async ({ search, schedule, type }) => {
         userId: row.user.firstName + ' ' + row.user.lastName,
         environmentId: row.environment.typeEnvironment,
         subjectId: row.subject.name,
+        workId: row.work?.name,
       }
     }) || []
 

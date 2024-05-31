@@ -14,6 +14,7 @@ export async function GET(req, { params }) {
         user: true,
         environment: true,
         subject: true,
+        work: true,
       },
     })
 
@@ -37,7 +38,10 @@ export async function PUT(req, { params }) {
       userId,
       environmentId,
       subjectId,
+      workId,
     } = await req.json()
+
+    console.log(day, hourStart, hourEnd, schoolTermId, userId, environmentId, subjectId, workId)
 
     await prisma.schedule.update({
       where: {
@@ -51,6 +55,7 @@ export async function PUT(req, { params }) {
         userId,
         environmentId,
         subjectId,
+        workId,
       },
     })
 

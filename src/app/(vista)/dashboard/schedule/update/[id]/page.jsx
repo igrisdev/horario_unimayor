@@ -24,6 +24,8 @@ export default async function SubjectUpdate({ params }) {
           environment: row.environment.typeEnvironment,
           subjectId: row.subject.id,
           subject: row.subject.name,
+          workId: row.work?.id,
+          work: row.work?.name,
         }
       }) || []
 
@@ -39,11 +41,14 @@ export default async function SubjectUpdate({ params }) {
 
     const { data: subject } = await Axios.get(`/api/dashboard/subject?search`)
 
+    const { data: work } = await Axios.get(`/api/dashboard/work?search`)
+
     rows.push({
       allSchoolTerm: schoolterm,
       allUser: user,
       allEnvironment: environment,
       allSubject: subject,
+      allWork: work,
     })
 
     dataSubject = rows

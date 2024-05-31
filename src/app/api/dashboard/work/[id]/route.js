@@ -36,7 +36,7 @@ export async function PUT(req, { params }) {
     })
 
     return NextResponse.json(
-      { message: 'Periodo Académico actualizado con éxito' },
+      { message: 'Labor actualizada con éxito' },
       { status: 200 }
     )
   } catch (error) {
@@ -57,7 +57,7 @@ export async function DELETE(req, { params }) {
     })
 
     return NextResponse.json(
-      { message: 'Periodo Académico eliminada con éxito' },
+      { message: 'Labor eliminada con éxito' },
       { status: 200 }
     )
   } catch (error) {

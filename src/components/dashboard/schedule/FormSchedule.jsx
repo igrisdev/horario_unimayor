@@ -12,6 +12,12 @@ import { toast } from 'sonner'
 export function FormSchedule({ isEdit, label, id = null, data = [] }) {
   const ref = useRef()
 
+  console.log(data)
+
+  console.log(data[0]?.schoolTermId)
+
+  console.log(data[0]?.schoolTerm)
+
   const handleSchedule = async (formData) => {
     const subject = createSchedule(formData)
 
@@ -106,12 +112,12 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
 
       <div className=''>
         <label htmlFor='schoolTermId'>
-          Periodo académico {data[0]?.schoolTerm[0]?.name}
+          Periodo académico {data[0]?.schoolTerm}
         </label>
         <input
           type='hidden'
           name='schoolTermId'
-          value={data[0]?.schoolTerm[0]?.id}
+          value={data[0]?.schoolTermId}
         />
       </div>
 
@@ -158,6 +164,31 @@ export function FormSchedule({ isEdit, label, id = null, data = [] }) {
                   value={environment.id}
                 >
                   {environment.typeEnvironment}
+                </option>
+              )
+            })
+          })}
+        </select>
+      </div>
+
+      <div className='flex flex-col max-w-96'>
+        <label htmlFor='workId'>Labor para esta materia</label>
+        <select
+          id='workId'
+          name='workId'
+          defaultValue={isEdit ? data[0].workId : 'default'}
+          className='text-gray-900 text-sm rounded-lg block w-full p-2 outline-none'
+        >
+          <option value='default'>Seleccionar</option>
+
+          {data.map((item) => {
+            return item.allWork?.map((work) => {
+              return (
+                <option
+                  key={work.id}
+                  value={work.id}
+                >
+                  {work.name}
                 </option>
               )
             })

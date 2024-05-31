@@ -19,8 +19,6 @@ export async function GET(req) {
 
     const works = await prisma.work.findMany()
 
-    console.log(works)
-
     return NextResponse.json(works, { status: 200 })
   } catch (error) {
     return NextResponse.json(
