@@ -81,6 +81,9 @@ export function TableScheduleMain({ subjects, user }) {
                           <div>{matchingSubject.hourStart}</div>-
                           <div>{matchingSubject.hourEnd}</div>
                         </div>
+                        <div className='flex gap-2 justify-center w-full mt-2'>
+                          <div>{matchingSubject.schoolTerm}</div>
+                        </div>
                       </td>
                     )
                   }

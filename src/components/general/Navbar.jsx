@@ -53,7 +53,7 @@ const AdminLinkPhone = ({ href, label, handleToggle, ...pros }) => {
   )
 }
 
-export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
+export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -62,13 +62,27 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
   const [toggle, setToggle] = useState(false)
 
   let searchSchedule = searchParams.get('schedule')
+  let searchTeacher = searchParams.get('teacher')
 
-  const handleSearch = (term) => {
+  const handleSearchSchedule = (term) => {
     const params = new URLSearchParams(searchParams)
 
     if (term !== '') {
       params.set('schedule', term)
       searchSchedule = term
+    }
+
+    replace(`${pathname}?${params.toString()}`)
+  }
+
+  const handleSearchTeacher = (term) => {
+    if (user === 'docente' || pathname.includes('/dashboard')) return
+
+    const params = new URLSearchParams(searchParams)
+
+    if (term !== '') {
+      params.set('teacher', term)
+      searchTeacher = term
     }
 
     replace(`${pathname}?${params.toString()}`)
@@ -160,7 +174,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
                 className='text-gray-900 text-sm rounded-lg block w-full p-3 outline-none'
                 defaultValue={searchSchedule}
                 name='schedule'
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => handleSearchSchedule(e.target.value)}
               >
                 {schoolterms.map((item) => (
                   <option
@@ -172,6 +186,25 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
                 ))}
               </select>
             </form>
+            {user === 'admin' && !pathname.includes('/dashboard') && (
+              <form className='max-w-sm mx-auto'>
+                <select
+                  className='text-gray-900 text-sm rounded-lg block w-full p-3 outline-none'
+                  defaultValue={searchTeacher}
+                  name='teacher'
+                  onChange={(e) => handleSearchTeacher(e.target.value)}
+                >
+                  {teachers.map((item) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                    >
+                      {item.firstName} {item.lastName}
+                    </option>
+                  ))}
+                </select>
+              </form>
+            )}
           </div>
           <ul className='py-2 text-sm text-gray-700'>
             {user === 'admin' &&
@@ -202,12 +235,33 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
         ) : (
           <>
             <div className='hidden sm:block'>
+              {user === 'admin' && !pathname.includes('/dashboard') && (
+                <form className='max-w-sm mx-auto'>
+                  <select
+                    className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
+                    defaultValue={searchTeacher}
+                    name='teacher'
+                    onChange={(e) => handleSearchTeacher(e.target.value)}
+                  >
+                    {teachers.map((item) => (
+                      <option
+                        key={item.id}
+                        value={item.id}
+                      >
+                        {item.firstName} {item.lastName}
+                      </option>
+                    ))}
+                  </select>
+                </form>
+              )}
+            </div>
+            <div className='hidden sm:block'>
               <form className='flex flex-row gap-x-2'>
                 <select
                   className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
                   defaultValue={searchSchedule}
                   name='schedule'
-                  onChange={(e) => handleSearch(e.target.value)}
+                  onChange={(e) => handleSearchSchedule(e.target.value)}
                 >
                   {schoolterms.map((item) => (
                     <option

@@ -5,6 +5,7 @@ import React from 'react'
 
 export default async function Home({ searchParams }) {
   const schedule = searchParams?.schedule || ''
+  const teacher = searchParams?.teacher || ''
 
   const id = await isLoggedIn()
 
@@ -13,7 +14,11 @@ export default async function Home({ searchParams }) {
   const schedules = await prisma.schedule.findMany({
     where: {
       ...(user.role === 'admin'
-        ? {}
+        ? {
+            user: {
+              id: teacher,
+            },
+          }
         : {
             user: {
               id: user.id,
@@ -42,6 +47,7 @@ export default async function Home({ searchParams }) {
     hourStart: item.hourStart.substring(0, 10),
     hourEnd: item.hourEnd.substring(0, 10),
     teacher: item.user.firstName + ' ' + item.user.lastName,
+    schoolTerm: item.schoolTerm.name,
   }))
 
   function parseIntDay(day) {
