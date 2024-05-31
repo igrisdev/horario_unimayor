@@ -12,12 +12,6 @@ import { toast } from 'sonner'
 export function FormSchedule({ isEdit, label, id = null, data = [] }) {
   const ref = useRef()
 
-  console.log(data)
-
-  console.log(data[0]?.schoolTermId)
-
-  console.log(data[0]?.schoolTerm)
-
   const handleSchedule = async (formData) => {
     const subject = createSchedule(formData)
 

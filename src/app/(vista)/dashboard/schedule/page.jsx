@@ -7,8 +7,6 @@ export default async function SchoolTerm({ searchParams }) {
   const search = searchParams?.search || ''
   const schedule = searchParams?.schedule || ''
 
-  console.log(schedule)
-
   const urlCreate = '/dashboard/schedule/create'
   const labelCreate = 'Crear Horario'
 

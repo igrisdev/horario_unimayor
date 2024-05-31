@@ -8,15 +8,3 @@ export function verifyJWT(token) {
     })
   })
 }
-
-/* import jwt from 'jsonwebtoken'
-
-export const verifyJWT = (token) => {
-  try {
-    console.log(token, process.env.JWT_SECRET)
-    const data = jwt.verify(token, process.env.JWT_SECRET)
-    return data
-  } catch (error) {
-    return null
-  }
-} */

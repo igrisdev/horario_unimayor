@@ -7,6 +7,5 @@ export async function GET(req) {
 
   const id = await jwt.verify(token.value, process.env.JWT_SECRET)
 
-  console.log(id)
   return NextResponse.json({ id })
 }

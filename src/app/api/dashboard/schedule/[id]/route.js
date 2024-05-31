@@ -41,8 +41,6 @@ export async function PUT(req, { params }) {
       workId,
     } = await req.json()
 
-    console.log(day, hourStart, hourEnd, schoolTermId, userId, environmentId, subjectId, workId)
-
     await prisma.schedule.update({
       where: {
         id,
@@ -64,7 +62,6 @@ export async function PUT(req, { params }) {
       { status: 200 }
     )
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

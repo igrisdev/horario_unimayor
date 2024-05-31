@@ -24,7 +24,6 @@ export async function GET(req) {
 
     return NextResponse.json(subjects, { status: 200 })
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
@@ -50,7 +49,6 @@ export async function POST(req) {
       { status: 200 }
     )
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

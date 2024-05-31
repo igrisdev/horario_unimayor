@@ -31,8 +31,6 @@ export default async function SubjectCreate() {
 
   dataSubject = rows
 
-  console.log(dataSubject)
-
   return (
     <main className='grid place-content-center h-[calc(100vh-100px)]'>
       <div className='max-w-md relative flex flex-col p-4 rounded-md text-black bg-white'>

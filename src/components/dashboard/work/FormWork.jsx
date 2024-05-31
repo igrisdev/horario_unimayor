@@ -8,8 +8,6 @@ import { toast } from 'sonner'
 export function FormWork({ isEdit, label, id = null, data = [] }) {
   const ref = useRef()
 
-  console.log(data)
-
   const handleWork = async (formData) => {
     const subject = createWork(formData)
 

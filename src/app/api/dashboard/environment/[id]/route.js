@@ -35,7 +35,6 @@ export async function PUT(req, { params }) {
       { status: 200 }
     )
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
@@ -46,8 +45,6 @@ export async function PUT(req, { params }) {
 export async function DELETE(req, { params }) {
   try {
     const { id } = params
-
-    console.log(id)
 
     await prisma.environment.delete({
       where: { id },
