@@ -8,6 +8,8 @@ import { toast } from 'sonner'
 export function FormWork({ isEdit, label, id = null, data = [] }) {
   const ref = useRef()
 
+  console.log(data)
+
   const handleWork = async (formData) => {
     const subject = createWork(formData)
 
@@ -48,14 +50,14 @@ export function FormWork({ isEdit, label, id = null, data = [] }) {
         />
       </div>
       <div className='flex flex-col max-w-96'>
-        <label htmlFor='typeLabor'>Tipo de labor</label>
+        <label htmlFor='typeWork'>Tipo de labor</label>
         <input
-          id='typeLabor'
+          id='typeWork'
           type='text'
-          name='typeLabor'
+          name='typeWork'
           placeholder='Programador, Docente ...'
           autoFocus
-          defaultValue={isEdit ? data.typeLabor : ''}
+          defaultValue={isEdit ? data.typeWork : ''}
           className='bg-transparent border-b-[1px] border-gray-300 py-2  outline-none focus:border-b-amber-500'
         />
       </div>

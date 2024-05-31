@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import apiLabor from '@/lib/mock/apiLabor.json'
+import prisma from '@/lib/prisma'
 
 export async function GET(req) {
   try {
@@ -8,21 +8,21 @@ export async function GET(req) {
     const search = searchParams.get('search')
 
     if (search !== '') {
-      const work = apiLabor.filter((item) => {
-        return (
-          item.name.toLowerCase().includes(search.toLowerCase()) ||
-          item.typeLabor.toLowerCase().includes(search.toLowerCase())
-        )
+      const works = await prisma.work.findMany({
+        where: {
+          OR: [{ name: { contains: search, mode: 'insensitive' } }],
+        },
       })
 
-      return NextResponse.json(work, { status: 200 })
+      return NextResponse.json(works, { status: 200 })
     }
 
-    const work = apiLabor
+    const works = await prisma.work.findMany()
 
-    return NextResponse.json(work, { status: 200 })
+    console.log(works)
+
+    return NextResponse.json(works, { status: 200 })
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
@@ -32,18 +32,19 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const { name, typeLabor, description, availability } = await req.json()
+    const { name, typeWork, description, availability } = await req.json()
 
-    apiLabor.push({
-      id: apiLabor.length + 1,
-      name,
-      typeLabor,
-      description,
-      availability,
+    await prisma.work.create({
+      data: {
+        name,
+        typeWork,
+        description,
+        availability,
+      },
     })
 
     return NextResponse.json(
-      { message: 'Labor creado con éxito' },
+      { message: 'Labor creada con éxito' },
       { status: 200 }
     )
   } catch (error) {

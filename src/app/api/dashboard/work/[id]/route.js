@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server'
-
-import apiLabor from '@/lib/mock/apiLabor.json'
+import prisma from '@/lib/prisma'
 
 export async function GET(req, { params }) {
   try {
     const { id } = params
 
-    const foundWork = apiLabor.find((item) => {
-      return item.id === id
+    const foundWork = await prisma.work.findUnique({
+      where: { id },
     })
 
     return NextResponse.json(foundWork, { status: 200 })
@@ -22,10 +21,22 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const { id } = params
-    const { name, typeLabor, description, availability } = await req.json()
+    const { name, typeWork, description, availability } = await req.json()
+
+    await prisma.work.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        typeWork,
+        description,
+        availability,
+      },
+    })
 
     return NextResponse.json(
-      { message: 'Labor actualizado con éxito' },
+      { message: 'Periodo Académico actualizado con éxito' },
       { status: 200 }
     )
   } catch (error) {
@@ -41,7 +52,9 @@ export async function DELETE(req, { params }) {
   try {
     const { id } = params
 
-    apiLabor.filter((item) => item.id !== id)
+    await prisma.work.delete({
+      where: { id },
+    })
 
     return NextResponse.json(
       { message: 'Periodo Académico eliminada con éxito' },
