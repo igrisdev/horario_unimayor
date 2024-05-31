@@ -53,6 +53,7 @@ export default async function Home({ searchParams }) {
       viernes: 4,
       sábado: 5,
     }
+
     return dayMap[day]
   }
 
