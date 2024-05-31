@@ -24,6 +24,15 @@ model User {
   @@map(name: "users")
 }
 
+model Work {
+  id           String     @id @default(cuid())
+  name         String
+  typeWork     String
+  description  String
+  availability String
+  Schedule     Schedule[]
+}
+
 model Subject {
   id          String     @id @default(cuid())
   name        String
@@ -55,6 +64,8 @@ model Schedule {
   environment   Environment @relation(fields: [environmentId], references: [id]) // ambiente
   subjectId     String
   subject       Subject     @relation(fields: [subjectId], references: [id]) // materia
+  workId        String?
+  work          Work?       @relation(fields: [workId], references: [id])
 }
 
 model Environment {
