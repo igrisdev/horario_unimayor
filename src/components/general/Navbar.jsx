@@ -76,7 +76,8 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
   }
 
   const handleSearchTeacher = (term) => {
-    if (user === 'docente' || pathname.includes('/dashboard')) return
+    console.log('object');
+    /* if (user === 'docente' || pathname.includes('/dashboard')) return
 
     const params = new URLSearchParams(searchParams)
 
@@ -85,7 +86,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms, teachers }) => {
       searchTeacher = term
     }
 
-    replace(`${pathname}?${params.toString()}`)
+    replace(`${pathname}?${params.toString()}`) */
   }
 
   useEffect(() => {
