@@ -61,27 +61,18 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
   const [IsSession] = useState(isLogged)
   const [toggle, setToggle] = useState(false)
 
+  let searchSchedule = searchParams.get('schedule')
+
   const handleSearch = (term) => {
     const params = new URLSearchParams(searchParams)
 
-    if (term !== '' && term !== 'default') {
+    if (term !== '') {
       params.set('schedule', term)
-    } else {
-      params.delete('schedule')
+      searchSchedule = term
     }
 
     replace(`${pathname}?${params.toString()}`)
   }
-
-  /* useEffect(() => {
-    function handleSearchStart() {
-      const params = new URLSearchParams(searchParams)
-      params.set('schedule', schoolterms.filter((item) => item.state)[0]?.name)
-      replace(`${pathname}?${params.toString()}`)
-    }
-
-    handleSearchStart()
-  }, [searchParams, replace, pathname, schoolterms]) */
 
   useEffect(() => {
     function handleSearchStart() {
@@ -94,7 +85,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
     }
 
     handleSearchStart()
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     const handleIsLogged = () => {
@@ -167,13 +158,10 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
             <form className='max-w-sm mx-auto'>
               <select
                 className='text-gray-900 text-sm rounded-lg block w-full p-3 outline-none'
-                defaultValue={
-                  schoolterms.filter((item) => item.state)[0]?.name || 'default'
-                }
+                defaultValue={searchSchedule}
                 name='schedule'
                 onChange={(e) => handleSearch(e.target.value)}
               >
-                <option value='default'>Periodo Académico</option>
                 {schoolterms.map((item) => (
                   <option
                     key={item.id}
@@ -217,14 +205,10 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
               <form className='flex flex-row gap-x-2'>
                 <select
                   className='text-gray-900 text-sm rounded-md block w-full p-2 outline-none'
-                  defaultValue={
-                    schoolterms.filter((item) => item.state)[0]?.name ||
-                    'default'
-                  }
+                  defaultValue={searchSchedule}
                   name='schedule'
                   onChange={(e) => handleSearch(e.target.value)}
                 >
-                  <option value='default'>Periodo Académico</option>
                   {schoolterms.map((item) => (
                     <option
                       key={item.id}
@@ -236,9 +220,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
                 </select>
               </form>
             </div>
-            {/* <div className='flex items-center justify-center size-10 bg-amber-100 rounded-full font-semibold text-black text-xl'>
-              J
-            </div> */}
+
             <form
               action={logout}
               className='hidden lg:block p-2 text-sm hover:bg-amber-400 rounded-lg hover:text-black font-medium'
