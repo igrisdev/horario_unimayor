@@ -68,6 +68,7 @@ export const Navbar = ({ isLogged, user, userInfo, schoolterms }) => {
 
     if (term !== '') {
       params.set('schedule', term)
+
       searchSchedule = term
     }
 
